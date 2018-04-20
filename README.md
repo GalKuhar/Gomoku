@@ -14,19 +14,19 @@ Git: (Takole meni deluje)
 V eclipse narediš nov Java projekt ki se mora imenovati Gomoku
 Team > Share Project > Git
 Repozitory: narediš kjer boš imela datoteke (npr. Desktop\Projekt)
-> Finish
+\> Finish
 
 V tem repozitoriju (Desktop\Projekt) izbrišeš mapo Gomoku (Ne sprašuj zakaj, ker ne vem, drugače pa ne dela)
 
 Team > Pull
 Remote name: origin
 URI: https://github.com/GalKuhar/Gomoku.git
-> next
+\> next
 Remote > New Remote
 Remote name: origin
 URI: https://github.com/GalKuhar/Gomoku.git
-> Finish
+\> Finish
 Reference: master
-> Finish
+\> Finish
 
 in bi moglo delat (teoretično)
