@@ -1,5 +1,10 @@
 package Logika;
 
-public class Igralec {
-
+public enum Igralec {
+	Beli,
+	Črni;
+	
+	public Igralec nasprotnik() {
+		return (this == Črni ? Beli : Črni);
+	}
 }
