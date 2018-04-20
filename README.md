@@ -2,9 +2,8 @@
 Projekt pri programiranju 2: Gal Kuhar in Petra Podlogar
 
 Jezik programiranja: slovenščina
-
-Eclipse:
-
+***
+# Eclipse:
 dobiš na https://www.eclipse.org/neon/
 
 za delo z neonom potrebuješ še Java JDK 8:
@@ -13,7 +12,8 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 
 Java SE Development Kit 8u171 za windows.
 
-Git: (Takole meni deluje)
+# Git:
+(Takole meni deluje)
 
 V eclipse narediš nov Java projekt ki se mora imenovati Gomoku
 
