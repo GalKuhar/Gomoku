@@ -8,7 +8,7 @@ public class Plosca {
 	
 	private Polje[][] plosca;
 	
-	public Plosca () {
+	public Plosca() {
 		super();
 		this.plosca = new Polje[Igra.N][Igra.N];
 		
@@ -17,6 +17,10 @@ public class Plosca {
 				plosca[i][j] = Polje.PRAZNO;
 			}
 		}
+	}
+	
+	public Polje element(int x, int y) {
+		return plosca[x][y];
 	}
 
 }

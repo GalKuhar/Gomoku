@@ -13,8 +13,8 @@ public class Igra {
 	// dolžina peterice
 	public static final int PET = 5;
 	
-	private Polje[][] plosca;
-	private Igralec prviNaPotezi;
+	protected Plosca plosca;
+	protected static Igralec prviNaPotezi;
 	
 	{	// Inicializiramo Peterice
 		
@@ -41,27 +41,37 @@ public class Igra {
 		}
 	}
 	
-	public Igralec naPotezi() {
-		int steviloBelih = 0;
-		int steviloCrnih = 0;
-		for (int i = 0 ; i < Igra.N ; i++) {
-			for (int j = 0 ; j < Igra.N ; j++) {
-				if (plosca[i][j] == Polje.BELI) {
-					steviloBelih++;
-				} else if (plosca[i][j] == Polje.CRNI) {
-					steviloCrnih++;
-				}
-			}
-		}
-		if (steviloBelih == steviloCrnih) {
-			return prviNaPotezi;
-		} else if (steviloBelih == steviloCrnih + 1 && prviNaPotezi == Igralec.BELI){
-			return Igralec.CRNI;
-		} else if (steviloBelih + 1 == steviloCrnih && prviNaPotezi == Igralec.CRNI){
-			return Igralec.BELI;
-		} else {
-		// èe pride do konca in ne najde, kdo je na potezi, vrne null
-			return null;
-		}
+	public Igra() {
+		plosca = new Plosca();
+		prviNaPotezi = Igralec.CRNI;
 	}
+	
+//	public Stanje naPotezi() {
+//		int steviloBelih = 0;
+//		int steviloCrnih = 0;
+//		for (int i = 0 ; i < Igra.N ; i++) {
+//			for (int j = 0 ; j < Igra.N ; j++) {
+//				if (plosca.element(i, j) == Polje.BELI) {
+//					steviloBelih++;
+//				} else if (plosca.element(i, j) == Polje.CRNI) {
+//					steviloCrnih++;
+//				}
+//			}
+//		}
+//		if (steviloBelih == steviloCrnih) {
+//			if (Igra.prviNaPotezi == Igralec.BELI) {
+//				return Stanje.BELI_NA_POTEZI;
+//			} else {
+//				return Stanje.CRNI_NA_POTEZI;
+//			}		
+//		} else if (steviloBelih == steviloCrnih + 1 && prviNaPotezi == Igralec.BELI){
+//			return Stanje.CRNI_NA_POTEZI;
+//		} else if (steviloBelih + 1 == steviloCrnih && prviNaPotezi == Igralec.CRNI){
+//			return Stanje.BELI_NA_POTEZI;
+//		} else {
+//		// èe pride do konca in ne najde, kdo je na potezi, vrne null
+//			return null;
+//		}
+//	}
+	
 }
