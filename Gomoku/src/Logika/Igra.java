@@ -40,4 +40,28 @@ public class Igra {
 			}
 		}
 	}
+	
+	public Igralec naPotezi() {
+		int steviloBelih = 0;
+		int steviloCrnih = 0;
+		for (int i = 0 ; i < Igra.N ; i++) {
+			for (int j = 0 ; j < Igra.N ; j++) {
+				if (plosca[i][j] == Polje.BELI) {
+					steviloBelih++;
+				} else if (plosca[i][j] == Polje.CRNI) {
+					steviloCrnih++;
+				}
+			}
+		}
+		if (steviloBelih == steviloCrnih) {
+			return prviNaPotezi;
+		} else if (steviloBelih == steviloCrnih + 1 && prviNaPotezi == Igralec.BELI){
+			return Igralec.CRNI;
+		} else if (steviloBelih + 1 == steviloCrnih && prviNaPotezi == Igralec.CRNI){
+			return Igralec.BELI;
+		} else {
+		// èe pride do konca in ne najde, kdo je na potezi, vrne null
+			return null;
+		}
+	}
 }

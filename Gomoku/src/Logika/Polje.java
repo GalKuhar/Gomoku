@@ -1,5 +1,7 @@
 package Logika;
 
-public class Polje {
-
+public enum Polje {
+	PRAZNO,
+	BELI,
+	CRNI;
 }
