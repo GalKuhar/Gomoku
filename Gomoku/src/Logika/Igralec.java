@@ -1,10 +1,10 @@
 package Logika;
 
 public enum Igralec {
-	Beli,
-	Črni;
+	BELI,
+	CRNI;
 	
 	public Igralec nasprotnik() {
-		return (this == Črni ? Beli : Črni);
+		return (this == CRNI ? BELI : CRNI);
 	}
 }
