@@ -22,5 +22,4 @@ public class Plosca {
 	public Polje element(int x, int y) {
 		return plosca[x][y];
 	}
-
 }
