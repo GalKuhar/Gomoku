@@ -1,7 +1,7 @@
 # Gomoku
 Projekt pri programiranju 2: Gal Kuhar in Petra Podlogar
 
-Jezik programiranja: slovenščina
+Jezik programiranja: slovenščina, brez šumnikov
 ***
 # Eclipse:
 dobiš na https://www.eclipse.org/neon/
