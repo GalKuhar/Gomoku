@@ -5,16 +5,16 @@ import java.util.List;
 
 public class Igra {
 
-	// velikost igralne plošèe
+	// velikost igralne plosce
 	public static final int N = 15;
 	
-	private static final List<Peterica> peterice = new LinkedList<Peterica>();
+	public static final List<Peterica> peterice = new LinkedList<Peterica>();
 	
-	// dolžina peterice
+	// dolzina peterice
 	public static final int PET = 5;
 	
 	protected Plosca plosca;
-	protected static Igralec prviNaPotezi;
+	private static Igralec prviNaPotezi;
 	
 	{	// Inicializiramo Peterice
 		
@@ -43,35 +43,43 @@ public class Igra {
 	
 	public Igra() {
 		plosca = new Plosca();
-		prviNaPotezi = Igralec.CRNI;
+		setPrviNaPotezi(Igralec.CRNI);
+	}
+
+	public Igralec getPrviNaPotezi() {
+		return prviNaPotezi;
+	}
+
+	public void setPrviNaPotezi(Igralec prviNaPotezi) {
+		Igra.prviNaPotezi = prviNaPotezi;
 	}
 	
 //	public Stanje naPotezi() {
-//		int steviloBelih = 0;
-//		int steviloCrnih = 0;
-//		for (int i = 0 ; i < Igra.N ; i++) {
-//			for (int j = 0 ; j < Igra.N ; j++) {
-//				if (plosca.element(i, j) == Polje.BELI) {
-//					steviloBelih++;
-//				} else if (plosca.element(i, j) == Polje.CRNI) {
-//					steviloCrnih++;
-//				}
+//	int steviloBelih = 0;
+//	int steviloCrnih = 0;
+//	for (int i = 0 ; i < Igra.N ; i++) {
+//		for (int j = 0 ; j < Igra.N ; j++) {
+//			if (plosca.element(i, j) == Polje.BELI) {
+//				steviloBelih++;
+//			} else if (plosca.element(i, j) == Polje.CRNI) {
+//				steviloCrnih++;
 //			}
 //		}
-//		if (steviloBelih == steviloCrnih) {
-//			if (Igra.prviNaPotezi == Igralec.BELI) {
-//				return Stanje.BELI_NA_POTEZI;
-//			} else {
-//				return Stanje.CRNI_NA_POTEZI;
-//			}		
-//		} else if (steviloBelih == steviloCrnih + 1 && prviNaPotezi == Igralec.BELI){
-//			return Stanje.CRNI_NA_POTEZI;
-//		} else if (steviloBelih + 1 == steviloCrnih && prviNaPotezi == Igralec.CRNI){
+//	}
+//	if (steviloBelih == steviloCrnih) {
+//		if (Igra.prviNaPotezi == Igralec.BELI) {
 //			return Stanje.BELI_NA_POTEZI;
 //		} else {
-//		// èe pride do konca in ne najde, kdo je na potezi, vrne null
-//			return null;
-//		}
+//			return Stanje.CRNI_NA_POTEZI;
+//		}		
+//	} else if (steviloBelih == steviloCrnih + 1 && prviNaPotezi == Igralec.BELI){
+//		return Stanje.CRNI_NA_POTEZI;
+//	} else if (steviloBelih + 1 == steviloCrnih && prviNaPotezi == Igralec.CRNI){
+//		return Stanje.BELI_NA_POTEZI;
+//	} else {
+//	// ce pride do konca in ne najde, kdo je na potezi, vrne null
+//		return null;
 //	}
+//}
 
 }

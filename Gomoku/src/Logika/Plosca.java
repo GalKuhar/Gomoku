@@ -1,7 +1,5 @@
 package Logika;
 
-
-
 public class Plosca {
 	
 	// NxN seznam polj
