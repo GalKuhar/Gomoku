@@ -53,33 +53,83 @@ public class Igra {
 	public void setPrviNaPotezi(Igralec prviNaPotezi) {
 		Igra.prviNaPotezi = prviNaPotezi;
 	}
+
+	/**
+	 * @return Vrne stanje igre
+	 */
+	public Stanje stanje() {
+		plosca.prestej();
+		int steviloPolnihPeteric = 0;
+		Igralec zmagovalec = null;
+		
+		for (Peterica peterica : Igra.peterice) {
+			if (peterica.vseBarve(plosca, Polje.BELI)) {
+				zmagovalec = Igralec.BELI;
+				steviloPolnihPeteric++;
+			} else if (peterica.vseBarve(plosca, Polje.CRNI)) {
+				zmagovalec = Igralec.CRNI;
+				steviloPolnihPeteric++;
+			}
+		}
+
+		// ce je prevec polnih peteric, je nekaj narobe
+		if (steviloPolnihPeteric > 1) {
+			return Stanje.IGRA_NI_VELJAVNA;
+		}
+		
+		if (zmagovalec == Igralec.BELI) {
+			return Stanje.BELI_ZMAGA;
+		} else if (zmagovalec == Igralec.CRNI) {
+			return Stanje.CRNI_ZMAGA;
+		}
+		
+		if (plosca.steviloBelih + plosca.steviloCrnih == Igra.N * Igra.N) {
+			return Stanje.NEODLOCENO;
+		}
+		
+		if (plosca.steviloBelih == plosca.steviloCrnih) {
+			if (getPrviNaPotezi() == Igralec.BELI) {
+				return Stanje.BELI_NA_POTEZI;
+			} else {
+				return Stanje.CRNI_NA_POTEZI;
+			}
+		} else if (plosca.steviloBelih == plosca.steviloCrnih + 1 && getPrviNaPotezi() == Igralec.BELI){
+			return Stanje.CRNI_NA_POTEZI;
+		} else if (plosca.steviloBelih + 1 == plosca.steviloCrnih && getPrviNaPotezi() == Igralec.CRNI){
+			return Stanje.BELI_NA_POTEZI;
+		} else {
+			// ce pride do konca in ne najde kdo na potezi, mora biti nekaj narobe
+			return Stanje.IGRA_NI_VELJAVNA;
+		}
+	}
 	
-//	public Stanje naPotezi() {
-//	int steviloBelih = 0;
-//	int steviloCrnih = 0;
-//	for (int i = 0 ; i < Igra.N ; i++) {
-//		for (int j = 0 ; j < Igra.N ; j++) {
-//			if (plosca.element(i, j) == Polje.BELI) {
-//				steviloBelih++;
-//			} else if (plosca.element(i, j) == Polje.CRNI) {
-//				steviloCrnih++;
-//			}
-//		}
-//	}
-//	if (steviloBelih == steviloCrnih) {
-//		if (Igra.prviNaPotezi == Igralec.BELI) {
-//			return Stanje.BELI_NA_POTEZI;
-//		} else {
-//			return Stanje.CRNI_NA_POTEZI;
-//		}		
-//	} else if (steviloBelih == steviloCrnih + 1 && prviNaPotezi == Igralec.BELI){
-//		return Stanje.CRNI_NA_POTEZI;
-//	} else if (steviloBelih + 1 == steviloCrnih && prviNaPotezi == Igralec.CRNI){
-//		return Stanje.BELI_NA_POTEZI;
-//	} else {
-//	// ce pride do konca in ne najde, kdo je na potezi, vrne null
-//		return null;
-//	}
-//}
+	public LinkedList<Poteza> moznePoteze() {
+		LinkedList<Poteza> moznosti = new LinkedList<Poteza>();
+		for (int x = 0; x < Igra.N; x ++) {
+			for (int y = 0; y < Igra.N; y ++) {
+				if (plosca.element(x, y) == Polje.PRAZNO) {
+					moznosti.add(new Poteza(x, y));
+				}
+			}
+		}
+		return moznosti;
+	}
+
+	public boolean odigrajPotezo(Poteza poteza) {
+		int x = poteza.getX();
+		int y = poteza.getY();
+		if (plosca.element(x, y) == Polje.PRAZNO) {
+			// ce se bo poklicala ta funkcija, bo nekdo od igralcev na vrsti
+			Stanje trenutnoStanje = stanje();
+			if (trenutnoStanje == Stanje.BELI_NA_POTEZI) {
+				plosca.elementSet(x, y, Polje.BELI);
+				return true;
+			} else if (trenutnoStanje == Stanje.CRNI_NA_POTEZI) {
+				plosca.elementSet(x, y, Polje.CRNI);
+				return true;
+			} 
+		}
+		return false;
+	}
 
 }
