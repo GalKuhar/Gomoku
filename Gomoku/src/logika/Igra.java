@@ -58,30 +58,17 @@ public class Igra {
 	 * @return Vrne stanje igre
 	 */
 	public Stanje stanje() {
-		plosca.prestej();
-		int steviloPolnihPeteric = 0;
-		Igralec zmagovalec = null;
-		
+		// najprej preveri ali je kdo že zmagal
 		for (Peterica peterica : Igra.peterice) {
 			if (peterica.vseBarve(plosca, Polje.BELI)) {
-				zmagovalec = Igralec.BELI;
-				steviloPolnihPeteric++;
+				return Stanje.BELI_ZMAGA;
 			} else if (peterica.vseBarve(plosca, Polje.CRNI)) {
-				zmagovalec = Igralec.CRNI;
-				steviloPolnihPeteric++;
+				return Stanje.CRNI_ZMAGA;
 			}
 		}
-
-		// ce je prevec polnih peteric, je nekaj narobe
-		if (steviloPolnihPeteric > 1) {
-			return Stanje.IGRA_NI_VELJAVNA;
-		}
 		
-		if (zmagovalec == Igralec.BELI) {
-			return Stanje.BELI_ZMAGA;
-		} else if (zmagovalec == Igralec.CRNI) {
-			return Stanje.CRNI_ZMAGA;
-		}
+		// nato preveri kdo je na potezi
+		plosca.prestej();
 		
 		if (plosca.steviloBelih + plosca.steviloCrnih == Igra.N * Igra.N) {
 			return Stanje.NEODLOCENO;
