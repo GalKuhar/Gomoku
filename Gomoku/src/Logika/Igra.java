@@ -28,8 +28,8 @@ public class Igra {
 					int dy = s[1];
 					if ((0 <= x + (PET-1) * dx) && (x + (PET-1) * dx < N) &&
 						(0 <= y + (PET-1) * dy) && (y + (PET-1) * dy < N)) {
-						int[] peterica_x = new int[5];
-						int[] peterica_y = new int[5];
+						int[] peterica_x = new int[PET];
+						int[] peterica_y = new int[PET];
 						for (int k = 0; k < PET; k++) {
 							peterica_x[0] = x + dx * k;
 							peterica_y[1] = y + dy * k;
