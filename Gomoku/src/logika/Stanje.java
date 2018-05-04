@@ -1,4 +1,4 @@
-package Logika;
+package logika;
 
 public enum Stanje {
 	BELI_NA_POTEZI,
