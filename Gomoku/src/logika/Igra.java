@@ -31,8 +31,8 @@ public class Igra {
 						int[] peterica_x = new int[PET];
 						int[] peterica_y = new int[PET];
 						for (int k = 0; k < PET; k++) {
-							peterica_x[0] = x + dx * k;
-							peterica_y[1] = y + dy * k;
+							peterica_x[k] = x + dx * k;
+							peterica_y[k] = y + dy * k;
 						}
 						peterice.add(new Peterica(peterica_x, peterica_y));
 					}
