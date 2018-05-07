@@ -16,7 +16,8 @@ public class Igra {
 	protected Plosca plosca;
 	private static Igralec prviNaPotezi;
 	
-	{	// Inicializiramo Peterice
+	static {
+		// Inicializiramo Peterice
 		
 		// Naredimo tabelo peteric
 		// smer navzdol desno +
