@@ -11,13 +11,13 @@ public class TestIgra extends TestCase {
 
 	public void testTabelePeterice() {
 		// preverimo ce smo nasli dovolj peteric (11*15 vodoravnih + navpicnih, 11 * 11 posevnih)
-		assertEquals(Igra.peterice.size(), 2 * (Igra.N - Igra.PET + 1) * Igra.N + 2 * (Igra.N - Igra.PET + 1) * (Igra.N - Igra.PET + 1));
+		assertEquals(Igra.getPeterice().size(), 2 * (Igra.getN() - Igra.getPET() + 1) * Igra.getN() + 2 * (Igra.getN() - Igra.getPET() + 1) * (Igra.getN() - Igra.getPET() + 1));
 	}
 	
 	public void testDolzinePeterice() {
 		// preverimo ce so peterice dovolj dolge
-		assertEquals(Igra.peterice.get(0).x.length, Igra.PET);
-		assertEquals(Igra.peterice.get(0).y.length, Igra.PET);
+		assertEquals(Igra.getPeterice().get(0).getX().length, Igra.getPET());
+		assertEquals(Igra.getPeterice().get(0).getY().length, Igra.getPET());
 	}
 	
 	public void testIgra() {
@@ -27,14 +27,14 @@ public class TestIgra extends TestCase {
 		// preverimo ce najde pravo stanje
 		assertEquals(igra.stanje(), Stanje.CRNI_NA_POTEZI);
 		// preverimo ce imamo n * n moznih potez
-		assertEquals(Igra.N * Igra.N, igra.moznePoteze().size());
+		assertEquals(Igra.getN() * Igra.getN(), igra.moznePoteze().size());
 		
 		// Naredimo eno potezo
 		igra.odigrajPotezo(igra.moznePoteze().get(0));
 		// Preverimo ce je se pravilono stanje
 		assertEquals(Stanje.BELI_NA_POTEZI, igra.stanje());
 		// more biti 1 manj moznih potez
-		assertEquals(Igra.N * Igra.N - 1, igra.moznePoteze().size());
+		assertEquals(Igra.getN() * Igra.getN() - 1, igra.moznePoteze().size());
 	}
 	
 	public void testIgra2() {

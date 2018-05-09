@@ -6,12 +6,24 @@ import java.util.List;
 public class Igra {
 
 	// velikost igralne plosce
-	public static final int N = 15;
+	protected static final int N = 15;
 	
-	public static final List<Peterica> peterice = new LinkedList<Peterica>();
+	public static int getN() {
+		return N;
+	}
+	
+	protected static final List<Peterica> peterice = new LinkedList<Peterica>();
+	
+	public static List<Peterica> getPeterice() {
+		return peterice;
+	}
 	
 	// dolzina peterice
-	public static final int PET = 5;
+	protected static final int PET = 5;
+	
+	public static int getPET() {
+		return PET;
+	}
 	
 	protected Plosca plosca;
 	private static Igralec prviNaPotezi;

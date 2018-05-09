@@ -3,8 +3,16 @@ package logika;
 public class Peterica {
 
 	// Peterica predstavljena s seznamom koordinat
-	public int[] x;
-	public int[] y;
+	private int[] x;
+	private int[] y;
+	
+	public int[] getX() {
+		return x;
+	}
+	
+	public int[] getY() {
+		return y;
+	}
 	
 	public Peterica(int[] x, int y[]) {
 		this.x = x;

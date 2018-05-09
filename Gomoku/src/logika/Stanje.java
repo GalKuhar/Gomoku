@@ -7,6 +7,4 @@ public enum Stanje {
 	BELI_ZMAGA,
 	NEODLOCENO,
 	IGRA_NI_VELJAVNA;
-	
-	
 }
