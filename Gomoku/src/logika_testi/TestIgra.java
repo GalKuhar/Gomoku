@@ -70,4 +70,19 @@ public class TestIgra extends TestCase {
 		igra.odigrajPotezo(new Poteza(4,1));
 		assertEquals(Stanje.BELI_ZMAGA, igra.stanje());
 	}
+	
+	public void testIgra4() {
+		// testira koliko èasa traja, èe zmagamo v zadnji peterici
+		Igra igra = new Igra();
+		igra.odigrajPotezo(new Poteza(10,14));
+		igra.odigrajPotezo(new Poteza(0,0));
+		igra.odigrajPotezo(new Poteza(11,13));
+		igra.odigrajPotezo(new Poteza(0,1));
+		igra.odigrajPotezo(new Poteza(12,12));
+		igra.odigrajPotezo(new Poteza(0,3));
+		igra.odigrajPotezo(new Poteza(13,11));
+		igra.odigrajPotezo(new Poteza(0,4));
+		igra.odigrajPotezo(new Poteza(14,10));
+		assertEquals(Stanje.CRNI_ZMAGA, igra.stanje());
+	}
 }
