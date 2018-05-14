@@ -12,10 +12,10 @@ public class Plosca {
 	
 	public Plosca() {
 		super();
-		this.plosca = new Polje[Igra.N][Igra.N];
+		this.plosca = new Polje[Igra.getN()][Igra.getN()];
 		
-		for (int i = 0 ; i < Igra.N ; i++) {
-			for (int j = 0 ; j < Igra.N ; j++) {
+		for (int i = 0 ; i < Igra.getN() ; i++) {
+			for (int j = 0 ; j < Igra.getN() ; j++) {
 				plosca[i][j] = Polje.PRAZNO;
 			}
 		}
@@ -32,8 +32,8 @@ public class Plosca {
 	public void prestej() {
 		steviloBelih = 0;
 		steviloCrnih = 0;
-		for (int i = 0 ; i < Igra.N ; i++) {
-			for (int j = 0 ; j < Igra.N ; j++) {
+		for (int i = 0 ; i < Igra.getN() ; i++) {
+			for (int j = 0 ; j < Igra.getN() ; j++) {
 				if (element(i, j) == Polje.BELI) {
 					steviloBelih++;
 				} else if (element(i, j) == Polje.CRNI) {

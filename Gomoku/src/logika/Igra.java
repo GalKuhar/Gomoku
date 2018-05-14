@@ -6,7 +6,7 @@ import java.util.List;
 public class Igra {
 
 	// velikost igralne plosce
-	public static final int N = 15;
+	private static final int N = 15;
 	
 	public static int getN() {
 		return N;
@@ -25,7 +25,7 @@ public class Igra {
 		return PET;
 	}
 	
-	public Plosca plosca;
+	private Plosca plosca;
 	private static Igralec prviNaPotezi;
 	
 	static {

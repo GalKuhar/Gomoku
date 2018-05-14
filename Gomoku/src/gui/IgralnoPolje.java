@@ -49,7 +49,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	}
 
 	private double squareWidth() {
-		return Math.min(getWidth(), getHeight()) / Igra.N;
+		return Math.min(getWidth(), getHeight()) / Igra.getN();
 	}
 	
 	private void paintBeli(Graphics2D g2, int i, int j) {
@@ -83,22 +83,22 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		// èrte
 		g2.setColor(Color.black);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		for (int i = 1; i < Igra.N + 1; i++) {
+		for (int i = 1; i < Igra.getN() + 1; i++) {
 			g2.drawLine((int)(i * w - squareWidth() / 2),
 					    (int)(squareWidth() / 2),
 					    (int)(i * w - squareWidth() / 2),
-					    (int)(Igra.N * w - squareWidth() / 2));
+					    (int)(Igra.getN() * w - squareWidth() / 2));
 			g2.drawLine((int)(squareWidth() / 2),
 					    (int)(i * w - squareWidth() / 2),
-					    (int)(Igra.N * w - squareWidth() / 2),
+					    (int)(Igra.getN() * w - squareWidth() / 2),
 					    (int)(i * w - squareWidth() / 2));
 		}
 		
 		// žetoni
 		Plosca plosca = master.getPlosca();
 		if (plosca != null) {
-			for (int i = 0; i < Igra.N; i++) {
-				for (int j = 0; j < Igra.N; j++) {
+			for (int i = 0; i < Igra.getN(); i++) {
+				for (int j = 0; j < Igra.getN(); j++) {
 					switch(plosca.element(i, j)) {
 					case BELI: paintBeli(g2, i, j); break;
 					case CRNI: paintCrni(g2, i, j); break;
@@ -136,9 +136,9 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double di = (x % w) / squareWidth() ;
 		int j = y / w ;
 		double dj = (y % w) / squareWidth() ;
-		if (0 <= i && i < Igra.N &&
+		if (0 <= i && i < Igra.getN() &&
 		    0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
-		    0 <= j && j < Igra.N && 
+		    0 <= j && j < Igra.getN() && 
 		    0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
 			master.klikniPolje(i, j);
 			senca = null;
@@ -174,11 +174,12 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double di = (x % w) / squareWidth() ;
 		int j = y / w ;
 		double dj = (y % w) / squareWidth() ;
-		if (0 <= i && i < Igra.N &&
+		if (0 <= i && i < Igra.getN() &&
 		    0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
-		    0 <= j && j < Igra.N && 
+		    0 <= j && j < Igra.getN() && 
 		    0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
-			if (master.igra.plosca.element(i, j) == Polje.PRAZNO) {
+			Plosca plosca = master.getPlosca();
+			if (plosca.element(i, j) == Polje.PRAZNO) {
 				senca = new int[] {(int)(w * (i + 0.5 * LINE_WIDTH + PADDING)), (int)(w * (j + 0.5 * LINE_WIDTH + PADDING))};
 			} else {
 				senca = null;
