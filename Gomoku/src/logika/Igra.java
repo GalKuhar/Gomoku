@@ -6,7 +6,7 @@ import java.util.List;
 public class Igra {
 
 	// velikost igralne plosce
-	protected static final int N = 15;
+	public static final int N = 15;
 	
 	public static int getN() {
 		return N;
@@ -25,7 +25,7 @@ public class Igra {
 		return PET;
 	}
 	
-	protected Plosca plosca;
+	public Plosca plosca;
 	private static Igralec prviNaPotezi;
 	
 	static {
@@ -101,6 +101,22 @@ public class Igra {
 			// ce pride do konca in ne najde kdo na potezi, mora biti nekaj narobe
 			return Stanje.IGRA_NI_VELJAVNA;
 		}
+	}
+	
+	/**
+	 * @param igra nova kopija dane igre
+	 */
+	public Igra(Igra igra) {
+		plosca = new Plosca();
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				plosca.elementSet(i, j, igra.plosca.element(i, j));
+			}
+		}
+	}
+
+	public Plosca getPlosca() {
+		return plosca;
 	}
 	
 	public LinkedList<Poteza> moznePoteze() {
