@@ -167,6 +167,9 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+//		if () {
+//			senca = null;
+//		}
 		int x = e.getX();
 		int y = e.getY();
 		int w = (int)(squareWidth());

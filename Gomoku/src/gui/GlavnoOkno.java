@@ -13,6 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logika.Igra;
+import logika.Igralec;
 import logika.Plosca;
 import logika.Poteza;
 
@@ -45,7 +46,10 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	private Strateg strategCrni;
 	
 	// Izbire v menujih
-	private JMenuItem nova_igra;
+	private JMenuItem igraClovekRacunalnik;
+	private JMenuItem igraRacunalnikClovek;
+	private JMenuItem igraClovekClovek;
+	private JMenuItem igraRacunalnikRacunalnik;
 
 	public GlavnoOkno() {
 		this.setTitle("Gomoku");
@@ -57,10 +61,23 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		this.setJMenuBar(menu_bar);
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
-		nova_igra = new JMenuItem("Nova igra");
-		igra_menu.add(nova_igra);
-		nova_igra.addActionListener(this);
+		
+		igraClovekRacunalnik = new JMenuItem("Èlovek – raèunalnik");
+		igra_menu.add(igraClovekRacunalnik);
+		igraClovekRacunalnik.addActionListener(this);
 	
+		igraRacunalnikClovek = new JMenuItem("Raèunalnik – èlovek");
+		igra_menu.add(igraRacunalnikClovek);
+		igraRacunalnikClovek.addActionListener(this);
+
+		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik – raèunalnik");
+		igra_menu.add(igraRacunalnikRacunalnik);
+		igraRacunalnikRacunalnik.addActionListener(this);
+
+		igraClovekClovek = new JMenuItem("Èlovek – èlovek");
+		igra_menu.add(igraClovekClovek);
+		igraClovekClovek.addActionListener(this);
+
 		// igralno polje
 		polje = new IgralnoPolje(this);
 		GridBagConstraints polje_layout = new GridBagConstraints();
@@ -83,7 +100,8 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		getContentPane().add(status, status_layout);
 		
 		// zaènemo novo igro
-		nova_igra();
+		novaIgra(new Clovek(this, Igralec.CRNI),
+				new Racunalnik(this, Igralec.BELI));
 	}
 	
 	/**
@@ -93,13 +111,16 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		return (igra == null ? null : igra.getPlosca());
 	}
 	
-	public void nova_igra() {
+	public void novaIgra(Strateg noviSrategCRNI, Strateg noviStrategBELI) {
 		if (strategCrni != null) { strategCrni.prekini(); }
 		if (strategBeli != null) { strategBeli.prekini(); }
+		
 		this.igra = new Igra();
-		strategCrni = new Clovek(this);
-		strategBeli = new Clovek(this);
+		
+		strategCrni = noviSrategCRNI;
+		strategBeli = noviStrategBELI;
 		// Tistemu, ki je na potezi, to povemo
+		
 		switch (igra.stanje()) {
 		case CRNI_NA_POTEZI: strategCrni.na_potezi(); break;
 		case BELI_NA_POTEZI: strategBeli.na_potezi(); break;
@@ -111,8 +132,21 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == nova_igra) {
-			nova_igra();
+		if (e.getSource() == igraClovekRacunalnik) {
+			novaIgra(new Clovek(this, Igralec.CRNI),
+					  new Racunalnik(this, Igralec.BELI));
+		}
+		else if (e.getSource() == igraRacunalnikClovek) {
+			novaIgra(new Racunalnik(this, Igralec.CRNI),
+					  new Clovek(this, Igralec.BELI));
+		}
+		else if (e.getSource() == igraRacunalnikRacunalnik) {
+			novaIgra(new Racunalnik(this, Igralec.CRNI),
+					  new Racunalnik(this, Igralec.BELI));
+		}
+		else if (e.getSource() == igraClovekClovek) {
+			novaIgra(new Clovek(this, Igralec.CRNI),
+			          new Clovek(this, Igralec.BELI));
 		}
 	}
 

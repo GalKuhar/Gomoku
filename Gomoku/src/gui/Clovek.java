@@ -1,12 +1,15 @@
 package gui;
 
+import logika.Igralec;
 import logika.Poteza;
 
 public class Clovek extends Strateg {
 	private GlavnoOkno master;
-	
-	public Clovek(GlavnoOkno master) {
+	private Igralec jaz;
+
+	public Clovek(GlavnoOkno master, Igralec jaz) {
 		this.master = master;
+		this.jaz = jaz;
 	}
 	
 	@Override
