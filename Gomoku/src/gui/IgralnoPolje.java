@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
 import logika.Igra;
+import logika.Peterica;
 import logika.Plosca;
 import logika.Polje;
 import logika.Stanje;
@@ -27,13 +28,16 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	/**
 	 * Relativni prostor okoli èrnih in belih žetonov
 	 */
-	private final static double PADDING = 0.1;
+	private final static double PADDING = 0.05;
 	
 	private int[] senca = null;
 	
 	private final Color belaSenca = new Color(255, 255, 255, 150);
 	private final Color crnaSenca = new Color(0, 0, 0, 100);
 	private final Color barvaOzadja = new Color(205, 133, 63);
+	
+	private final Color barvaZadnjePoteze = Color.green;
+	private final Color barvaZmagovalnePeterice = Color.red;
 	
 	public IgralnoPolje(GlavnoOkno master) {
 		super();
@@ -59,7 +63,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(Color.white);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.drawOval((int)x, (int)y, (int)r , (int)r);
+		//g2.drawOval((int)x, (int)y, (int)r , (int)r);
 		g2.fillOval((int)x, (int)y, (int)r , (int)r);
 	}
 	
@@ -70,8 +74,29 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(Color.black);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.drawOval((int)x, (int)y, (int)r , (int)r);
+		//g2.drawOval((int)x, (int)y, (int)r , (int)r);
 		g2.fillOval((int)x, (int)y, (int)r , (int)r);
+	}
+	
+	private void paintZadnjaPoteza(Graphics2D g2, int i, int j) {
+		double w = squareWidth();
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer žetona
+		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
+		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
+		g2.setColor(barvaZadnjePoteze);
+		//g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
+		g2.drawOval((int)x, (int)y, (int)r , (int)r);
+	}
+	
+	private void paintZmagovalnaPeterica(Graphics2D g2, Peterica peterica) {
+		double w = squareWidth();
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer žetona
+		g2.setColor(barvaZmagovalnePeterice);
+		for (int i = 0; i < Igra.getPET(); i++) {
+			double x = w * (peterica.getX()[i] + 0.5 * LINE_WIDTH + PADDING);
+			double y = w * (peterica.getY()[i] + 0.5 * LINE_WIDTH + PADDING);
+			g2.drawOval((int)x, (int)y, (int)r , (int)r);
+		}
 	}
 	
 	@Override
@@ -124,6 +149,18 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 			} else {
 				senca = null;
 			}
+		}
+		
+		// zadnja poteza
+		if (master.getZadnjaPoteza() != null) {
+			int x = master.getZadnjaPoteza().getX();
+			int y = master.getZadnjaPoteza().getY();
+			paintZadnjaPoteza(g2, x, y);
+		}
+		
+		// zmagovalna peterica
+		if (master.getZmagovalnaPeterica() != null) {
+			paintZmagovalnaPeterica(g2, master.getZmagovalnaPeterica());
 		}
 	}
 

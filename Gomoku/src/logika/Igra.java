@@ -28,6 +28,10 @@ public class Igra {
 	private Plosca plosca;
 	private static Igralec prviNaPotezi;
 	
+	private Poteza zadnjaPoteza = null;
+	
+	private Peterica zmagovalnaPeterica = null;
+	
 	static {
 		// Inicializiramo Peterice
 		
@@ -74,8 +78,10 @@ public class Igra {
 		// najprej preveri ali je kdo že zmagal
 		for (Peterica peterica : Igra.peterice) {
 			if (peterica.vseBarve(plosca, Polje.BELI)) {
+				zmagovalnaPeterica = peterica;
 				return Stanje.BELI_ZMAGA;
 			} else if (peterica.vseBarve(plosca, Polje.CRNI)) {
+				zmagovalnaPeterica = peterica;
 				return Stanje.CRNI_ZMAGA;
 			}
 		}
@@ -139,13 +145,23 @@ public class Igra {
 			Stanje trenutnoStanje = stanje();
 			if (trenutnoStanje == Stanje.BELI_NA_POTEZI) {
 				plosca.elementSet(x, y, Polje.BELI);
+				zadnjaPoteza = poteza;
 				return true;
 			} else if (trenutnoStanje == Stanje.CRNI_NA_POTEZI) {
 				plosca.elementSet(x, y, Polje.CRNI);
+				zadnjaPoteza = poteza;
 				return true;
-			} 
+			}
 		}
 		return false;
+	}
+	
+	public Poteza getZadnjaPoteza(){
+		return zadnjaPoteza;
+	}
+	
+	public Peterica getZmagovalnaPeterica(){
+		return zmagovalnaPeterica;
 	}
 
 }

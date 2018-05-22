@@ -14,13 +14,14 @@ import javax.swing.JMenuItem;
 
 import logika.Igra;
 import logika.Igralec;
+import logika.Peterica;
 import logika.Plosca;
 import logika.Poteza;
 
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
-	 * JPanel, v katerega rišemo èrne in bele etone
+	 * JPanel, v katerega riÅ¡emo Ärne in bele Å¾etone
 	 */
 	private IgralnoPolje polje;
 
@@ -31,17 +32,17 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 
 	
 	/**
-	 * Logika igre, null èe se igra trenutno ne igra
+	 * Logika igre, null Äe se igra trenutno ne igra
 	 */
 	protected Igra igra;
 	
 	/**
-	 * Strateg, ki vleèe poteze belega
+	 * Strateg, ki vleÄe poteze belega
 	 */
 	private Strateg strategBeli;
 
 	/**
-	 * Strateg, ki vleèe poteze èrnega
+	 * Strateg, ki vleÄe poteze Ärnega
 	 */
 	private Strateg strategCrni;
 	
@@ -62,19 +63,19 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
 		
-		igraClovekRacunalnik = new JMenuItem("Èlovek – raèunalnik");
+		igraClovekRacunalnik = new JMenuItem("Älovek â€“ raÄunalnik");
 		igra_menu.add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
 	
-		igraRacunalnikClovek = new JMenuItem("Raèunalnik – èlovek");
+		igraRacunalnikClovek = new JMenuItem("RaÄunalnik â€“ Älovek");
 		igra_menu.add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
 
-		igraRacunalnikRacunalnik = new JMenuItem("Raèunalnik – raèunalnik");
+		igraRacunalnikRacunalnik = new JMenuItem("RaÄunalnik â€“ raÄunalnik");
 		igra_menu.add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 
-		igraClovekClovek = new JMenuItem("Èlovek – èlovek");
+		igraClovekClovek = new JMenuItem("Älovek â€“ Älovek");
 		igra_menu.add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 
@@ -88,7 +89,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		polje_layout.weighty = 1.0;
 		getContentPane().add(polje, polje_layout);
 		
-		// statusna vrstica za sporoèila
+		// statusna vrstica za sporoÄila
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
 							    status.getFont().getStyle(),
@@ -99,13 +100,13 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 		
-		// zaènemo novo igro
+		// zaÄnemo novo igro
 		novaIgra(new Clovek(this, Igralec.CRNI),
 				new Racunalnik(this, Igralec.BELI));
 	}
 	
 	/**
-	 * @return trenutna igralna plosèa, ali null, èe igra ni aktivna
+	 * @return trenutna igralna plosÄa, ali null, Äe igra ni aktivna
 	 */
 	public Plosca getPlosca() {
 		return (igra == null ? null : igra.getPlosca());
@@ -169,11 +170,11 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		else {
 			switch(igra.stanje()) {
-			case CRNI_NA_POTEZI: status.setText("Na potezi je èrni"); break;
+			case CRNI_NA_POTEZI: status.setText("Na potezi je Ärni"); break;
 			case BELI_NA_POTEZI: status.setText("Na potezi je beli"); break;
-			case CRNI_ZMAGA: status.setText("Zmagal je èrni"); break;
+			case CRNI_ZMAGA: status.setText("Zmagal je Ärni"); break;
 			case BELI_ZMAGA: status.setText("Zmagal je beli"); break;
-			case NEODLOCENO: status.setText("Neodloèeno!"); break;
+			case NEODLOCENO: status.setText("NeodloÄeno!"); break;
 			case IGRA_NI_VELJAVNA: break;
 			}
 		}
@@ -200,5 +201,13 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	 */
 	public Igra copyIgra() {
 		return new Igra(igra);
+	}
+	
+	public Poteza getZadnjaPoteza() {
+		return igra.getZadnjaPoteza();
+	}
+	
+	public Peterica getZmagovalnaPeterica() {
+		return igra.getZmagovalnaPeterica();
 	}
 }
