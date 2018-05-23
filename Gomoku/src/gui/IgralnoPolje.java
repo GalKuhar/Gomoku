@@ -36,8 +36,11 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	private final Color crnaSenca = new Color(0, 0, 0, 100);
 	private final Color barvaOzadja = new Color(205, 133, 63);
 	
-	private final Color barvaZadnjePoteze = Color.green;
-	private final Color barvaZmagovalnePeterice = Color.red;
+	private final Color barvaBelih = Color.WHITE;
+	private final Color barvaCrnih = Color.BLACK;
+	
+	private final Color barvaZadnjePoteze = Color.CYAN;
+	private final Color barvaZmagovalnePeterice = Color.MAGENTA;
 	
 	public IgralnoPolje(GlavnoOkno master) {
 		super();
@@ -61,8 +64,8 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer žetona
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
-		g2.setColor(Color.white);
-		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
+		g2.setColor(barvaBelih);
+		//g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		//g2.drawOval((int)x, (int)y, (int)r , (int)r);
 		g2.fillOval((int)x, (int)y, (int)r , (int)r);
 	}
@@ -72,8 +75,8 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer žetona
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
-		g2.setColor(Color.black);
-		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
+		g2.setColor(barvaCrnih);
+		//g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		//g2.drawOval((int)x, (int)y, (int)r , (int)r);
 		g2.fillOval((int)x, (int)y, (int)r , (int)r);
 	}
@@ -84,7 +87,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(barvaZadnjePoteze);
-		//g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
+		g2.setStroke(new BasicStroke((float) (w * 0.5 * LINE_WIDTH)));
 		g2.drawOval((int)x, (int)y, (int)r , (int)r);
 	}
 	
@@ -92,6 +95,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		double w = squareWidth();
 		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer žetona
 		g2.setColor(barvaZmagovalnePeterice);
+		g2.setStroke(new BasicStroke((float) (w * 0.5 * LINE_WIDTH)));
 		for (int i = 0; i < Igra.getPET(); i++) {
 			double x = w * (peterica.getX()[i] + 0.5 * LINE_WIDTH + PADDING);
 			double y = w * (peterica.getY()[i] + 0.5 * LINE_WIDTH + PADDING);
