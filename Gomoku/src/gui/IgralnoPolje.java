@@ -204,9 +204,6 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-//		if () {
-//			senca = null;
-//		}
 		int x = e.getX();
 		int y = e.getY();
 		int w = (int)(squareWidth());
@@ -219,7 +216,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 		    0 <= j && j < Igra.getN() && 
 		    0.5 * LINE_WIDTH < dj && dj < 1.0 - 0.5 * LINE_WIDTH) {
 			Plosca plosca = master.getPlosca();
-			if (plosca.element(i, j) == Polje.PRAZNO) {
+			if (plosca.element(i, j) == Polje.PRAZNO && master.clovekNaPotezi()) {
 				senca = new int[] {(int)(w * (i + 0.5 * LINE_WIDTH + PADDING)), (int)(w * (j + 0.5 * LINE_WIDTH + PADDING))};
 			} else {
 				senca = null;

@@ -210,4 +210,19 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	public Peterica getZmagovalnaPeterica() {
 		return igra.getZmagovalnaPeterica();
 	}
+	
+	public boolean clovekNaPotezi(){
+		if (igra != null) {
+			switch (igra.stanje()) {
+			case BELI_NA_POTEZI:
+				return strategBeli instanceof Clovek;
+			case CRNI_NA_POTEZI:
+				return strategCrni instanceof Clovek;
+			default:
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 }
