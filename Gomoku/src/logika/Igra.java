@@ -163,5 +163,4 @@ public class Igra {
 	public Peterica getZmagovalnaPeterica(){
 		return zmagovalnaPeterica;
 	}
-
 }
