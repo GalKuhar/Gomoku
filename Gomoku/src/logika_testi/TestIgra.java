@@ -20,6 +20,11 @@ public class TestIgra extends TestCase {
 		assertEquals(Igra.getPeterice().get(0).getY().length, Igra.getPET());
 	}
 	
+	public void testTabeleSmeri() {
+		// preverimo ce so peterice dovolj dolge
+		assertEquals(Igra.getSmeri().size(), 15 + 15 + 21 + 21);
+	}
+	
 	public void testIgra() {
 		Igra igra = new Igra();
 		// ko naredimo novo igro, mora zaceti crni

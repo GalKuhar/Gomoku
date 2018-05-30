@@ -1,9 +1,13 @@
 package inteligenca;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import logika.Igra;
 import logika.Igralec;
 import logika.Peterica;
 import logika.Plosca;
+import logika.Smer;
 import logika.Stanje;
 
 public class Ocena {
@@ -20,46 +24,10 @@ public class Ocena {
 	public static final int DVE_DO_PRISILJENA_POTEZA = 10;
 	public static final int TRI_DO_PRISILJENA_POTEZA = 1;
 	
-	public static int vrednostPeterice(int k) {
-		assert (k < Igra.getPET());
-		return (ZMAGA >> (4 * (Igra.getPET() - k))); // hevristična ocena
-	}
 	
-	public static int oceniPozicijo1(Igralec jaz, Igra igra) {
-		switch (igra.stanje()) {
-		case CRNI_ZMAGA:
-			return (jaz == Igralec.CRNI ? ZMAGA : ZGUBA);
-		case BELI_ZMAGA:
-			return (jaz == Igralec.BELI ? ZMAGA : ZGUBA);
-		case NEODLOCENO:
-			return NEODLOCENO;
-		case CRNI_NA_POTEZI:
-		case BELI_NA_POTEZI:
-			// Preštejemo, koliko teric ima vsak igralec
-			Plosca plosca = igra.getPlosca();
-			int vrednostBELI = 0;
-			int vrednostCRNI = 0;
-			for (Peterica t : Igra.getPeterice()) {
-				int poljaBELI = 0;
-				int poljaCRNI = 0;
-				for (int k = 0; k < Igra.getPET() && (poljaBELI == 0 || poljaCRNI == 0); k++) {
-					switch (plosca.element(t.getX()[k], t.getY()[k])) {
-					case CRNI: poljaCRNI += 1; break;
-					case BELI: poljaBELI += 1; break;
-					case PRAZNO: break;
-					}
-				}
-				if (poljaBELI == 0 && poljaCRNI > 0) { vrednostCRNI += vrednostPeterice(poljaBELI); }
-				if (poljaCRNI == 0 && poljaBELI > 0) { vrednostBELI += vrednostPeterice(poljaCRNI); }
-			}
-			// To deljenje z 2 je verjetno brez veze ali celo narobe
-			return (jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI/2) : (vrednostCRNI - vrednostBELI/2));
-		}
-		assert false;
-		return 42; // Java je blesava
-	}
 	
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
+		Igralec naPotezi = null;
 		Stanje stanje = igra.stanje();
 		switch (stanje) {
 		case CRNI_ZMAGA:
@@ -69,16 +37,18 @@ public class Ocena {
 		case NEODLOCENO:
 			return NEODLOCENO;
 		case CRNI_NA_POTEZI:
+			naPotezi = Igralec.CRNI;
 		case BELI_NA_POTEZI:
+			naPotezi = Igralec.BELI;
 			Plosca plosca = igra.getPlosca();
 			
 			int vrednostBELI = 0;
 			int vrednostCRNI = 0;
 			
-			// najprej po stolpcih
-			for (int x = 0; x < Igra.getN(); x++) {
-				//pregledamo stirice
-				for (int k = 0; k < (Igra.getN() - Igra.getPET() + 1); k++) {
+			// po smereh
+			for (Smer s: igra.getSmeri()) {
+				// pregledamo stirice v smeri
+				for (int k = 0; k < s.dolzina() - Igra.getPET() + 2; k++) {
 					int poljaCRNI = 0;
 					int poljaBELI = 0;
 					
@@ -86,8 +56,8 @@ public class Ocena {
 					KonecStirice konec = null;
 					
 					//pregledamo elemente stiric
-					for (int y = k; y < k + Igra.getPET() - 1; y++) {
-						switch (plosca.element(x, y)) {
+					for (int i = k; i < k + Igra.getPET() - 1; i++) {
+						switch (plosca.element(s.getX()[i], s.getY()[i])) {
 						case CRNI: poljaCRNI += 1; break;
 						case BELI: poljaBELI += 1; break;
 						case PRAZNO: break;
@@ -99,24 +69,23 @@ public class Ocena {
 							// ce smo na konu polja imamo zaprt konec stirice
 							zacetek = KonecStirice.ZAPRT;
 						} else {
-							switch (plosca.element(x, k - 1)) {
+							switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
 							case CRNI: zacetek = KonecStirice.ISTE_BARVE; break;
 							case BELI: zacetek = KonecStirice.ZAPRT; break;
 							case PRAZNO: zacetek = KonecStirice.ODPRT; break;
 							}
 						}
 						
-						if (k == Igra.getN() - Igra.getPET() + 1) {
+						if (k == s.dolzina() - Igra.getPET() + 1) {
 							konec = KonecStirice.ZAPRT;
 						} else {
-							switch (plosca.element(x, k + Igra.getPET() - 1)) {
+							switch (plosca.element(s.getX()[k + Igra.getPET() - 1], s.getY()[k + Igra.getPET() - 1])) {
 							case CRNI: konec = KonecStirice.ISTE_BARVE; break;
 							case BELI: konec = KonecStirice.ZAPRT; break;
 							case PRAZNO: konec = KonecStirice.ODPRT; break;
 							}
 						}
-						
-						vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, jaz));
+						// vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
 					}
 					
 					if (poljaCRNI == 0 && poljaBELI > 0) {
@@ -124,96 +93,33 @@ public class Ocena {
 							// ce smo na konu polja imamo zaprt konec stirice
 							zacetek = KonecStirice.ZAPRT;
 						} else {
-							switch (plosca.element(x, k - 1)) {
+							switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
 							case BELI: zacetek = KonecStirice.ISTE_BARVE; break;
 							case CRNI: zacetek = KonecStirice.ZAPRT; break;
 							case PRAZNO: zacetek = KonecStirice.ODPRT; break;
 							}
 						}
 						
-						if (k == Igra.getN() - Igra.getPET() + 1) {
+						if (k == s.dolzina() - Igra.getPET() + 1) {
 							konec = KonecStirice.ZAPRT;
 						} else {
-							switch (plosca.element(x, k + Igra.getPET() - 1)) {
+							switch (plosca.element(s.getX()[k + Igra.getPET() - 1], s.getY()[k + Igra.getPET() - 1])) {
 							case BELI: konec = KonecStirice.ISTE_BARVE; break;
 							case CRNI: konec = KonecStirice.ZAPRT; break;
 							case PRAZNO: konec = KonecStirice.ODPRT; break;
 							}
 						}
-						vrednostBELI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, jaz));
+						// vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
 					}
+				if (poljaBELI == 0 && poljaCRNI > 0) { vrednostCRNI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
+				if (poljaCRNI == 0 && poljaBELI > 0) { vrednostBELI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
 				}
 			}
 			
-			// še po vrsicah:
-			for (int y = 0; y < Igra.getN(); y++) {
-				//pregledamo stirice
-				for (int k = 0; k < (Igra.getN() - Igra.getPET() + 1); k++) {
-					int poljaCRNI = 0;
-					int poljaBELI = 0;
-					
-					KonecStirice zacetek = null;
-					KonecStirice konec = null;
-					
-					//pregledamo elemente stiric
-					for (int x = k; x < k + Igra.getPET() - 1; x++) {
-						switch (plosca.element(x, y)) {
-						case CRNI: poljaCRNI += 1; break;
-						case BELI: poljaBELI += 1; break;
-						case PRAZNO: break;
-						}
-					}
-					if (poljaBELI == 0 && poljaCRNI > 0) {
-						if (k == 0) {
-							// ce smo na konu polja imamo zaprt konec stirice
-							zacetek = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(k - 1, y)) {
-							case CRNI: zacetek = KonecStirice.ISTE_BARVE; break;
-							case BELI: zacetek = KonecStirice.ZAPRT; break;
-							case PRAZNO: zacetek = KonecStirice.ODPRT; break;
-							}
-						}
-						
-						if (k == Igra.getN() - Igra.getPET() + 1) {
-							konec = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(k + Igra.getPET() - 1, y)) {
-							case CRNI: konec = KonecStirice.ISTE_BARVE; break;
-							case BELI: konec = KonecStirice.ZAPRT; break;
-							case PRAZNO: konec = KonecStirice.ODPRT; break;
-							}
-						}
-						vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, jaz));
-					}
-					
-					if (poljaCRNI == 0 && poljaBELI > 0) {
-						if (k == 0) {
-							// ce smo na konu polja imamo zaprt konec stirice
-							zacetek = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(k - 1, y)) {
-							case BELI: zacetek = KonecStirice.ISTE_BARVE; break;
-							case CRNI: zacetek = KonecStirice.ZAPRT; break;
-							case PRAZNO: zacetek = KonecStirice.ODPRT; break;
-							}
-						}
-						
-						if (k == Igra.getN() - Igra.getPET() + 1) {
-							konec = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(k + Igra.getPET() - 1, y)) {
-							case BELI: konec = KonecStirice.ISTE_BARVE; break;
-							case CRNI: konec = KonecStirice.ZAPRT; break;
-							case PRAZNO: konec = KonecStirice.ODPRT; break;
-							}
-						}
-						vrednostBELI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, jaz));
-					}
-				}
-			}
 			System.out.println(jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI) : (vrednostCRNI - vrednostBELI));
-			return (jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI) : (vrednostCRNI - vrednostBELI));
+			if (naPotezi == Igralec.BELI) { vrednostCRNI /= 2; }
+			if (naPotezi == Igralec.CRNI) { vrednostBELI /= 2; }
+			return (jaz == Igralec.BELI ? vrednostBELI - vrednostCRNI : vrednostCRNI - vrednostBELI);
 			
 		case IGRA_NI_VELJAVNA:
 			// to samo da eclipse in java ne tezita.

@@ -163,4 +163,79 @@ public class Igra {
 	public Peterica getZmagovalnaPeterica(){
 		return zmagovalnaPeterica;
 	}
+	
+	protected static final List<Smer> smeri = new LinkedList<Smer>();
+	
+	public static List<Smer> getSmeri() {
+		return smeri;
+	}
+	
+	static {
+		// stolpci
+		for (int x = 0; x < N; x++) {
+			int[] seznamX = new int[N];
+			int[] seznamY = new int[N];
+			for (int y = 0; y < N; y++) {
+				seznamX[y] = x;
+				seznamY[y] = y;
+			}
+			smeri.add(new Smer(seznamX, seznamY));
+		}
+		
+		// vrstice
+		for (int y = 0; y < N; y++) {
+			int[] seznamX = new int[N];
+			int[] seznamY = new int[N];
+			for (int x = 0; x < N; x++) {
+				seznamX[x] = x;
+				seznamY[x] = y;
+			}
+			smeri.add(new Smer(seznamX, seznamY));
+		}
+		
+		// diagonale desno dol zgornji trikotnik
+		for (int x = 0; x < (N - PET + 1); x++) {
+			int[] seznamX = new int[N - x];
+			int[] seznamY = new int[N - x];
+			for (int i = 0; i < N - x; i++) {
+				seznamX[i] = x + i;
+				seznamY[i] = i;
+			}
+			smeri.add(new Smer(seznamX, seznamY));
+		}
+		
+		// diagonale desno dol spodnji trikotnik
+		for (int y = 1; y < (N - PET + 1); y++) {
+			int[] seznamX = new int[N - y];
+			int[] seznamY = new int[N - y];
+			for (int i = 0; i < N - y; i++) {
+				seznamX[i] = i;
+				seznamY[i] = y + i;
+			}
+			smeri.add(new Smer(seznamX, seznamY));
+		}
+		
+		// diagonale desno gor zgornji trikotnik
+		for (int y = PET - 1; y < N; y++) {
+			int[] seznamX = new int[y + 1];
+			int[] seznamY = new int[y + 1];
+			for (int i = 0; i < y + 1; i++) {
+				seznamX[i] = i;
+				seznamY[i] = y - i;
+			}
+			smeri.add(new Smer(seznamX, seznamY));
+		}
+
+		// diagonale desno gor spodnji trikotnik
+		for (int x = 1; x < (N - PET + 1); x++) {
+			int[] seznamX = new int[N - x];
+			int[] seznamY = new int[N - x];
+			for (int i = 0; i < N - x; i++) {
+				seznamX[i] = i;
+				seznamY[i] = N - 1 - i;
+			}
+			smeri.add(new Smer(seznamX, seznamY));
+		}
+	}
+
 }
