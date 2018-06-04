@@ -46,7 +46,7 @@ public class Ocena {
 			int vrednostCRNI = 0;
 			
 			// po smereh
-			for (Smer s: igra.getSmeri()) {
+			for (Smer s: Igra.getSmeri()) {
 				// pregledamo stirice v smeri
 				for (int k = 0; k < s.dolzina() - Igra.getPET() + 2; k++) {
 					int poljaCRNI = 0;
@@ -85,7 +85,8 @@ public class Ocena {
 							case PRAZNO: konec = KonecStirice.ODPRT; break;
 							}
 						}
-						// vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
+						
+						vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
 					}
 					
 					if (poljaCRNI == 0 && poljaBELI > 0) {
@@ -109,16 +110,20 @@ public class Ocena {
 							case PRAZNO: konec = KonecStirice.ODPRT; break;
 							}
 						}
-						// vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
+						
+						vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
 					}
-				if (poljaBELI == 0 && poljaCRNI > 0) { vrednostCRNI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
-				if (poljaCRNI == 0 && poljaBELI > 0) { vrednostBELI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
+					
+					// System.out.println(oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)));
+//					if (poljaBELI == 0 && poljaCRNI > 0) { vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
+//					if (poljaCRNI == 0 && poljaBELI > 0) { vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
 				}
 			}
-			
-			System.out.println(jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI) : (vrednostCRNI - vrednostBELI));
+			System.out.println("BELI: " + vrednostBELI);
+			System.out.println("CRNI: " + vrednostCRNI);
 			if (naPotezi == Igralec.BELI) { vrednostCRNI /= 2; }
 			if (naPotezi == Igralec.CRNI) { vrednostBELI /= 2; }
+			System.out.println(jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI) : (vrednostCRNI - vrednostBELI));
 			return (jaz == Igralec.BELI ? vrednostBELI - vrednostCRNI : vrednostCRNI - vrednostBELI);
 			
 		case IGRA_NI_VELJAVNA:
@@ -139,8 +144,10 @@ public class Ocena {
 	}
 	
 	public static int oceniStirico(int stevilo, KonecStirice zacetek, KonecStirice konec, boolean jazNaPotezi) {
-		System.out.println("ocenjujem" + stevilo + jazNaPotezi);
 		// katerikoli primer O----O ne sme dati nič pik
+		assert(zacetek != null);
+		assert(konec != null);
+		
 		if (zacetek == KonecStirice.ZAPRT && konec == KonecStirice.ZAPRT) {
 			return 0;
 		}
@@ -224,7 +231,7 @@ public class Ocena {
 				}
 			}
 		default:
-			return 0;
+			return 0; //ne pride do tega
 		}
 	}	
 }

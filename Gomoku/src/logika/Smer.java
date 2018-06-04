@@ -2,8 +2,8 @@ package logika;
 
 public class Smer {
 	
-	private int[] x;
-	private int[] y;
+	private static int[] x;
+	private static int[] y;
 	
 	public int[] getX() {
 		return x;
@@ -14,8 +14,8 @@ public class Smer {
 	}
 
 	public Smer(int[] x, int[] y) {
-		this.x = x;
-		this.y = y;
+		Smer.x = x;
+		Smer.y = y;
 	}
 	
 	public static int dolzina() {
