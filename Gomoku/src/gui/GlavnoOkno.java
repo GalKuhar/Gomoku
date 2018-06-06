@@ -21,7 +21,7 @@ import logika.Poteza;
 @SuppressWarnings("serial")
 public class GlavnoOkno extends JFrame implements ActionListener {
 	/**
-	 * JPanel, v katerega rišemo crne in bele žetone
+	 * JPanel, v katerega rišemo črne in bele žetone
 	 */
 	private IgralnoPolje polje;
 
@@ -37,12 +37,12 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 	protected Igra igra;
 	
 	/**
-	 * Strateg, ki vlece poteze belega
+	 * Strateg, ki vleče poteze belega
 	 */
 	private Strateg strategBeli;
 
 	/**
-	 * Strateg, ki vlece poteze crnega
+	 * Strateg, ki vleče poteze črnega
 	 */
 	private Strateg strategCrni;
 	
@@ -63,19 +63,19 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		JMenu igra_menu = new JMenu("Igra");
 		menu_bar.add(igra_menu);
 		
-		igraClovekRacunalnik = new JMenuItem("Clovek : racunalnik");
+		igraClovekRacunalnik = new JMenuItem("Človek : računalnik");
 		igra_menu.add(igraClovekRacunalnik);
 		igraClovekRacunalnik.addActionListener(this);
 	
-		igraRacunalnikClovek = new JMenuItem("Racunalnik : clovek");
+		igraRacunalnikClovek = new JMenuItem("Računalnik : človek");
 		igra_menu.add(igraRacunalnikClovek);
 		igraRacunalnikClovek.addActionListener(this);
 
-		igraRacunalnikRacunalnik = new JMenuItem("Racunalnik : racunalnik");
+		igraRacunalnikRacunalnik = new JMenuItem("Računalnik : računalnik");
 		igra_menu.add(igraRacunalnikRacunalnik);
 		igraRacunalnikRacunalnik.addActionListener(this);
 
-		igraClovekClovek = new JMenuItem("Clovek : clovek");
+		igraClovekClovek = new JMenuItem("Človek : človek");
 		igra_menu.add(igraClovekClovek);
 		igraClovekClovek.addActionListener(this);
 
@@ -89,7 +89,7 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		polje_layout.weighty = 1.0;
 		getContentPane().add(polje, polje_layout);
 		
-		// statusna vrstica za sporocila
+		// statusna vrstica za sporočila
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
 							    status.getFont().getStyle(),
@@ -100,13 +100,13 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 		
-		// zacnemo novo igro
+		// začnemo novo igro
 		novaIgra(new Clovek(this, Igralec.CRNI),
 				new Racunalnik(this, Igralec.BELI));
 	}
 	
 	/**
-	 * @return trenutna igralna plosca, ali null, ce igra ni aktivna
+	 * @return trenutna igralna plošča, ali null, ce igra ni aktivna
 	 */
 	public Plosca getPlosca() {
 		return (igra == null ? null : igra.getPlosca());
@@ -170,11 +170,11 @@ public class GlavnoOkno extends JFrame implements ActionListener {
 		}
 		else {
 			switch(igra.stanje()) {
-			case CRNI_NA_POTEZI: status.setText("Na potezi je crni"); break;
+			case CRNI_NA_POTEZI: status.setText("Na potezi je črni"); break;
 			case BELI_NA_POTEZI: status.setText("Na potezi je beli"); break;
-			case CRNI_ZMAGA: status.setText("Zmagal je crni"); break;
+			case CRNI_ZMAGA: status.setText("Zmagal je črni"); break;
 			case BELI_ZMAGA: status.setText("Zmagal je beli"); break;
-			case NEODLOCENO: status.setText("Neodloceno!"); break;
+			case NEODLOCENO: status.setText("Neodločeno!"); break;
 			case IGRA_NI_VELJAVNA: break;
 			}
 		}

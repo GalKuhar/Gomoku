@@ -75,7 +75,7 @@ public class Igra {
 	 * @return Vrne stanje igre
 	 */
 	public Stanje stanje() {
-		// najprej preveri ali je kdo že zmagal
+		// najprej preveri ali je kdo Å¾e zmagal
 		for (Peterica peterica : Igra.peterice) {
 			if (peterica.vseBarve(plosca, Polje.BELI)) {
 				zmagovalnaPeterica = peterica;

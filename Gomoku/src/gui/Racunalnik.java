@@ -10,6 +10,8 @@ public class Racunalnik extends Strateg {
 	private GlavnoOkno master;
 	private Igralec jaz;
 	private SwingWorker<Poteza,Object> mislec;
+	
+	private final static int GLOBINA = 2;
 
 	public Racunalnik(GlavnoOkno master, Igralec jaz) {
 		this.master = master;
@@ -18,8 +20,8 @@ public class Racunalnik extends Strateg {
 	
 	@Override
 	public void na_potezi() {
-		// Za�nemo razmišljati
-		mislec = new Minimax(master, 2, jaz);
+		// Začnemo razmišljati
+		mislec = new Minimax(master, GLOBINA, jaz);
 		mislec.execute();
 	}
 

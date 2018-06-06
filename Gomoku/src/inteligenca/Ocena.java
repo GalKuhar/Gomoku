@@ -1,29 +1,24 @@
 package inteligenca;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import logika.Igra;
 import logika.Igralec;
-import logika.Peterica;
 import logika.Plosca;
-import logika.Polje;
 import logika.Smer;
 import logika.Stanje;
 
 public class Ocena {
 
-	public static final int ZMAGA = 100000000; // vrednost zmage, veè kot vsaka druga ocena pozicije
-	public static final int ZGUBA = -100000000;  // vrednost izgube, mora biti -ZMAGA
-	public static final int NEODLOCENO = 0; // vrednost neodloèene igre
+	public static final int ZMAGA = 1000000; // vrednost zmage, več kot vsaka druga ocena pozicije
+	public static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
+	public static final int NEODLOCENO = 0; // vrednost neodločene igre
 	
-	public static final int ENA_DO_ZMAGE = 100000;
-	public static final int DVE_DO_ZMAGE = 10000;
-	public static final int TRI_DO_ZMAGE = 1000;
-	public static final int PRISILJENA_POTEZA = 50000;
-	public static final int ENA_DO_PRISILJENA_POTEZA = 5000;
-	public static final int DVE_DO_PRISILJENA_POTEZA = 500;
-	public static final int TRI_DO_PRISILJENA_POTEZA = 50;
+	public static final int ENA_DO_ZMAGE = 10000;
+	public static final int DVE_DO_ZMAGE = 1000;
+	public static final int TRI_DO_ZMAGE = 100;
+	public static final int PRISILJENA_POTEZA = 5000;
+	public static final int ENA_DO_PRISILJENA_POTEZA = 500;
+	public static final int DVE_DO_PRISILJENA_POTEZA = 50;
+	public static final int TRI_DO_PRISILJENA_POTEZA = 5;
 	
 	
 	
@@ -48,7 +43,7 @@ public class Ocena {
 			
 			// po smereh
 			for (Smer s: Igra.getSmeri()) {
-				// pregledamo stirice v smeri
+				// pregledamo štirice v smeri
 				for (int k = 0; k < s.dolzina() - Igra.getPET() + 2; k++) {
 					int poljaCRNI = 0;
 					int poljaBELI = 0;
@@ -56,7 +51,7 @@ public class Ocena {
 					KonecStirice zacetek = null;
 					KonecStirice konec = null;
 					
-					//pregledamo elemente stiric
+					// pregledamo elemente štiric
 					for (int i = k; i < k + Igra.getPET() - 1; i++) {
 						switch (plosca.element(s.getX()[i], s.getY()[i])) {
 						case CRNI: poljaCRNI += 1; break;
@@ -67,7 +62,7 @@ public class Ocena {
 					
 					if (poljaBELI == 0 && poljaCRNI > 0) {
 						if (k == 0) {
-							// ce smo na konu polja imamo zaprt konec stirice
+							// če smo na koncu polja, imamo zaprt konec štirice
 							zacetek = KonecStirice.ZAPRT;
 						} else {
 							switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
@@ -92,7 +87,7 @@ public class Ocena {
 					
 					if (poljaCRNI == 0 && poljaBELI > 0) {
 						if (k == 0) {
-							// ce smo na konu polja imamo zaprt konec stirice
+							// če smo na koncu polja, imamo zaprt konec štirice
 							zacetek = KonecStirice.ZAPRT;
 						} else {
 							switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
@@ -120,15 +115,15 @@ public class Ocena {
 //					if (poljaCRNI == 0 && poljaBELI > 0) { vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
 				}
 			}
-			System.out.println("BELI: " + vrednostBELI);
-			System.out.println("CRNI: " + vrednostCRNI);
-			if (naPotezi == Igralec.BELI) { vrednostCRNI /= 2; }
-			if (naPotezi == Igralec.CRNI) { vrednostBELI /= 2; }
-			System.out.println(jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI) : (vrednostCRNI - vrednostBELI));
+//			System.out.println("BELI: " + vrednostBELI);
+//			System.out.println("CRNI: " + vrednostCRNI);
+//			if (naPotezi == Igralec.BELI) { vrednostCRNI /= 2; }
+//			if (naPotezi == Igralec.CRNI) { vrednostBELI /= 2; }
+//			System.out.println(jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI) : (vrednostCRNI - vrednostBELI));
 			return (jaz == Igralec.BELI ? vrednostBELI - vrednostCRNI : vrednostCRNI - vrednostBELI);
 			
 		case IGRA_NI_VELJAVNA:
-			// to samo da eclipse in java ne tezita.
+			// to samo da eclipse in java ne težita
 			return 413;
 		}
 		return 0;
@@ -145,7 +140,7 @@ public class Ocena {
 //	}
 	
 	public static int oceniStirico(int stevilo, KonecStirice zacetek, KonecStirice konec, boolean jazNaPotezi) {
-		// katerikoli primer O----O ne sme dati nič pik
+		// katerikoli primer O----O, ne sme dati nič pik
 		assert(zacetek != null);
 		assert(konec != null);
 		
@@ -153,7 +148,7 @@ public class Ocena {
 			return 0;
 		}
 		
-		System.out.println(jazNaPotezi);
+		// System.out.println(jazNaPotezi);
 		
 		switch (stevilo) {
 		case 4:
@@ -162,7 +157,7 @@ public class Ocena {
 				return ENA_DO_ZMAGE;
 			// OXXXX-
 			} else if (zacetek == KonecStirice.ZAPRT || konec == KonecStirice.ZAPRT) {
-				// če smo mi na potezi samo še zmagamo
+				// če smo mi na potezi, samo še zmagamo
 				if (jazNaPotezi) {
 					return ENA_DO_ZMAGE;
 				// če drugi na potezi mora to igrati, ali pa izgubi
@@ -197,39 +192,39 @@ public class Ocena {
 				}
 			}
 		case 2:
-			// 3 z presledkom --XXX ali -XX-X ali X-X-X ali XX--X ,...
+			// 3 s presledkom --XXX ali -XX-X ali X-X-X ali XX--X ,...
 			if (zacetek == KonecStirice.ISTE_BARVE || konec == KonecStirice.ISTE_BARVE) {
-				// ce X igra notri more tudi beli
+				// če X igra notri mora tudi beli
 				return ENA_DO_PRISILJENA_POTEZA;
 			// O-XX-- ali O-X-X- ali  OX-X--
 			} else if (zacetek == KonecStirice.ZAPRT || konec == KonecStirice.ZAPRT) {
 				// X mora 2x igrati notri, da potem beli prisiljen v potezo
 				return DVE_DO_PRISILJENA_POTEZA;
-			// Potem sta oba konca odprta --XX-- ali -X--X- ali --X-X-
+			// potem sta oba konca odprta --XX-- ali -X--X- ali --X-X-
 			} else {
-				// ce lahko 3x igram notri zmagam
+				// če lahko 3x igram notri zmagam
 				if (jazNaPotezi) {
 					return TRI_DO_ZMAGE;
-				// ce notri igram, bo to postala prisiljena poteza
+				// če notri igram, bo to postala prisiljena poteza
 				} else {
 					return ENA_DO_PRISILJENA_POTEZA;
 				}
 			}
 		case 1:
-			// 2 z presledkom: X---X ali X--X- X-X-- XX---
+			// 2 s presledkom: X---X ali X--X- X-X-- XX---
 			if (zacetek == KonecStirice.ISTE_BARVE || konec == KonecStirice.ISTE_BARVE) {
-				// ce X igra 2x notri je O prisiljen
+				// če X igra 2x notri je O prisiljen
 				return DVE_DO_PRISILJENA_POTEZA;
 			// OX---- O-X--- O--X-- O---X-
 			} else if (zacetek == KonecStirice.ZAPRT || konec == KonecStirice.ZAPRT) {
-				// ce X igra 3x notri to prisiljena
+				// če X igra 3x notri to prisiljena
 				return TRI_DO_PRISILJENA_POTEZA;
 			// -X---- --X---
 			} else {
-				// ce X lahko 3x notri igra zmaga
+				// če X lahko 3x notri igra zmaga
 				if (jazNaPotezi) {
 					return TRI_DO_ZMAGE;
-				// ce X 2x notri igra, je naslednja poteza prisiljena
+				// če X 2x notri igra, je naslednja poteza prisiljena
 				} else {
 					return DVE_DO_PRISILJENA_POTEZA;
 				}

@@ -26,7 +26,7 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 		Igra igra = master.copyIgra();
 		OcenjenaPoteza p = minimax(0, igra);
 		assert (p.poteza != null);
-		System.out.println("Minimax: " + p);
+//		System.out.println("Minimax: " + p);
 		return p.poteza;
 	}
 	
@@ -40,7 +40,7 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 	}
 
 	private OcenjenaPoteza minimax(int k, Igra igra) {
-		System.out.println("Globina: " + k);
+//		System.out.println("Globina: " + k);
 		Igralec naPotezi = null;
 		// Ugotovimo, ali je konec, ali je kdo na potezi?
 		switch (igra.stanje()) {
@@ -88,8 +88,8 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 			// Izračunamo vrednost pozicije po odigrani potezi p
 			
 			int ocenaP = minimax(k+1, kopijaIgre).vrednost;
-			// če je p boljča poteza, si jo zabelečimo
-			if (najboljsa == null // če nimamo kandidata za najboljčo potezo
+			// če je p boljša poteza, si jo zabeležimo
+			if (najboljsa == null // če nimamo kandidata za najboljšo potezo
 				|| (naPotezi == jaz && ocenaP > ocenaNajboljse) // maksimiziramo
 				|| (naPotezi != jaz && ocenaP < ocenaNajboljse) // minimiziramo
 				) {

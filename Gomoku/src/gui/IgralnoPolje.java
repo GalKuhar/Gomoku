@@ -21,12 +21,12 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	private GlavnoOkno master;
 	
 	/**
-	 * Relativna öirina Ërte
+	 * Relativna ≈°irina ƒçrte
 	 */
 	private final static double LINE_WIDTH = 0.1;
 	
 	/**
-	 * Relativni prostor okoli Ërnih in belih ûetonov
+	 * Relativni prostor okoli ƒçrnih in belih ≈æetonov
 	 */
 	private final static double PADDING = 0.05;
 	
@@ -61,29 +61,25 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	
 	private void paintBeli(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
-		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ûetona
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ≈æetona
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(barvaBelih);
-		//g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		//g2.drawOval((int)x, (int)y, (int)r , (int)r);
 		g2.fillOval((int)x, (int)y, (int)r , (int)r);
 	}
 	
 	private void paintCrni(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
-		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ûetona
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ≈æetona
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(barvaCrnih);
-		//g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		//g2.drawOval((int)x, (int)y, (int)r , (int)r);
 		g2.fillOval((int)x, (int)y, (int)r , (int)r);
 	}
 	
 	private void paintZadnjaPoteza(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
-		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ûetona
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ≈æetona
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
 		g2.setColor(barvaZadnjePoteze);
@@ -93,7 +89,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	
 	private void paintZmagovalnaPeterica(Graphics2D g2, Peterica peterica) {
 		double w = squareWidth();
-		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ûetona
+		double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer ≈æetona
 		g2.setColor(barvaZmagovalnePeterice);
 		g2.setStroke(new BasicStroke((float) (w * 0.5 * LINE_WIDTH)));
 		for (int i = 0; i < Igra.getPET(); i++) {
@@ -107,9 +103,9 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		// öirina kvadratka
+		// ≈°irina kvadratka
 		double w = squareWidth();
-		// Ërte
+		// ƒçrte
 		g2.setColor(Color.black);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		for (int i = 1; i < Igra.getN() + 1; i++) {
@@ -123,7 +119,7 @@ public class IgralnoPolje extends JPanel implements MouseListener, MouseMotionLi
 					    (int)(i * w - squareWidth() / 2));
 		}
 		
-		// ûetoni
+		// ≈æetoni
 		Plosca plosca = master.getPlosca();
 		if (plosca != null) {
 			for (int i = 0; i < Igra.getN(); i++) {
