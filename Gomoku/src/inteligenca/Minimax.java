@@ -57,6 +57,8 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 					(jaz == Igralec.CRNI ? Ocena.ZMAGA : Ocena.ZGUBA));
 		case NEODLOCENO:
 			return new OcenjenaPoteza(null, Ocena.NEODLOCENO);
+		default:
+			break;
 		}
 		assert (naPotezi != null);
 		
