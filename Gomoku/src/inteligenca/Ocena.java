@@ -7,6 +7,7 @@ import logika.Igra;
 import logika.Igralec;
 import logika.Peterica;
 import logika.Plosca;
+import logika.Polje;
 import logika.Smer;
 import logika.Stanje;
 
@@ -16,13 +17,13 @@ public class Ocena {
 	public static final int ZGUBA = -100000000;  // vrednost izgube, mora biti -ZMAGA
 	public static final int NEODLOCENO = 0; // vrednost neodloèene igre
 	
-	public static final int ENA_DO_ZMAGE = 10000000;
-	public static final int DVE_DO_ZMAGE = 1000000;
-	public static final int TRI_DO_ZMAGE = 100000;
-	public static final int PRISILJENA_POTEZA = 1000;
-	public static final int ENA_DO_PRISILJENA_POTEZA = 100;
-	public static final int DVE_DO_PRISILJENA_POTEZA = 10;
-	public static final int TRI_DO_PRISILJENA_POTEZA = 1;
+	public static final int ENA_DO_ZMAGE = 100000;
+	public static final int DVE_DO_ZMAGE = 10000;
+	public static final int TRI_DO_ZMAGE = 1000;
+	public static final int PRISILJENA_POTEZA = 50000;
+	public static final int ENA_DO_PRISILJENA_POTEZA = 5000;
+	public static final int DVE_DO_PRISILJENA_POTEZA = 500;
+	public static final int TRI_DO_PRISILJENA_POTEZA = 50;
 	
 	
 	
@@ -86,7 +87,7 @@ public class Ocena {
 							}
 						}
 						
-						vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
+						vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, naPotezi == Igralec.CRNI);
 					}
 					
 					if (poljaCRNI == 0 && poljaBELI > 0) {
@@ -111,7 +112,7 @@ public class Ocena {
 							}
 						}
 						
-						vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi));
+						vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, naPotezi == Igralec.BELI);
 					}
 					
 					// System.out.println(oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)));
@@ -133,15 +134,15 @@ public class Ocena {
 		return 0;
 	}
 	
-	public static boolean semJazNaPotezi(Stanje stanje, Igralec Jaz) {
-		if (stanje == Stanje.BELI_NA_POTEZI) {
-			return Jaz == Igralec.BELI;
-		} else if (stanje == Stanje.CRNI_NA_POTEZI) {
-			return Jaz == Igralec.CRNI;
-		} else {
-			return false;
-		}
-	}
+//	public static boolean semJazNaPotezi(Stanje stanje, Igralec Jaz) {
+//		if (stanje == Stanje.BELI_NA_POTEZI) {
+//			return Jaz == Igralec.BELI;
+//		} else if (stanje == Stanje.CRNI_NA_POTEZI) {
+//			return Jaz == Igralec.CRNI;
+//		} else {
+//			return false;
+//		}
+//	}
 	
 	public static int oceniStirico(int stevilo, KonecStirice zacetek, KonecStirice konec, boolean jazNaPotezi) {
 		// katerikoli primer O----O ne sme dati nič pik
@@ -151,6 +152,9 @@ public class Ocena {
 		if (zacetek == KonecStirice.ZAPRT && konec == KonecStirice.ZAPRT) {
 			return 0;
 		}
+		
+		System.out.println(jazNaPotezi);
+		
 		switch (stevilo) {
 		case 4:
 			// to primer ko smo že zmagali, ne glede na to, ali smo na potezi -XXXX-
