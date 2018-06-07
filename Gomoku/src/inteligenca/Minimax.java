@@ -1,7 +1,10 @@
 package inteligenca;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 import javax.swing.SwingWorker;
-
 import gui.GlavnoOkno;
 import logika.Igra;
 import logika.Igralec;
@@ -10,10 +13,10 @@ import logika.Poteza;
 public class Minimax extends SwingWorker<Poteza, Object>  {
 
 	private GlavnoOkno master;
-	
 	private int globina;
-	
 	private Igralec jaz;
+	
+//	private List<Poteza> najboljsePoteze;
 	
 	public Minimax(GlavnoOkno master, int globina, Igralec jaz) {
 		this.master = master;
@@ -26,7 +29,6 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 		Igra igra = master.copyIgra();
 		OcenjenaPoteza p = minimax(0, igra);
 		assert (p.poteza != null);
-//		System.out.println("Minimax: " + p);
 		return p.poteza;
 	}
 	
@@ -40,7 +42,7 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 	}
 
 	private OcenjenaPoteza minimax(int k, Igra igra) {
-//		System.out.println("Globina: " + k);
+		
 		Igralec naPotezi = null;
 		// Ugotovimo, ali je konec, ali je kdo na potezi?
 		switch (igra.stanje()) {
@@ -60,11 +62,11 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 		default:
 			break;
 		}
-		assert (naPotezi != null);
 		
+		assert (naPotezi != null);
 		// Nekdo je na potezi, ugotovimo, kaj se splača igrati
+		
 		if (k >= globina) {
-			
 			// dosegli smo največjo dovoljeno globino, zato
 			// ne vrnemo poteze, ampak samo oceno pozicije
 			return new OcenjenaPoteza(
@@ -72,16 +74,14 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 					Ocena.oceniPozicijo(jaz, igra));
 		}
 		
-		// Hranimo najboljšo do sedaj videno potezo in njeno oceno.
-		// Tu bi bilo bolje imeti seznam do sedaj videnih najboljših potez, ker je lahko
-		// v neki poziciji več enakovrednih najboljših potez. Te bi lahko zbrali
-		// v seznam, potem pa vrnili naključno izbrano izmed najboljših potez, kar bi
-		// popestrilo igro računalnika.
-		
 		Poteza najboljsa = null;
 		int ocenaNajboljse = 0;
-		for (Poteza p : igra.moznePoteze()) {
-			
+		
+		// to premeša možne poteze - s tem dodamo random izbiro
+		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
+		Collections.shuffle(moznePoteze);
+		
+		for (Poteza p : moznePoteze) {
 			// V kopiji igre odigramo potezo p
 			
 			Igra kopijaIgre = new Igra(igra);
@@ -90,8 +90,9 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 			// Izračunamo vrednost pozicije po odigrani potezi p
 			
 			int ocenaP = minimax(k+1, kopijaIgre).vrednost;
+			
 			// če je p boljša poteza, si jo zabeležimo
-			if (najboljsa == null // če nimamo kandidata za najboljšo potezo
+			if (najboljsa == null // če še nimamo kandidatov za najboljše poteze
 				|| (naPotezi == jaz && ocenaP > ocenaNajboljse) // maksimiziramo
 				|| (naPotezi != jaz && ocenaP < ocenaNajboljse) // minimiziramo
 				) {
@@ -99,7 +100,7 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 				ocenaNajboljse = ocenaP;
 			}
 		}
-		// Vrnemo najboljšo najdeno potezo in njeno oceno
+
 		assert (najboljsa != null);
 		return new OcenjenaPoteza(najboljsa, ocenaNajboljse);
 	}

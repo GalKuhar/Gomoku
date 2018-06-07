@@ -1,4 +1,4 @@
-package logika;
+ package logika;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -231,11 +231,10 @@ public class Igra {
 			int[] seznamX = new int[N - x];
 			int[] seznamY = new int[N - x];
 			for (int i = 0; i < N - x; i++) {
-				seznamX[i] = i;
+				seznamX[i] = x + i;
 				seznamY[i] = N - 1 - i;
 			}
 			smeri.add(new Smer(seznamX, seznamY));
 		}
 	}
-
 }

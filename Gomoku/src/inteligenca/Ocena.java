@@ -8,17 +8,17 @@ import logika.Stanje;
 
 public class Ocena {
 
-	public static final int ZMAGA = 1000000; // vrednost zmage, več kot vsaka druga ocena pozicije
+	public static final int ZMAGA = 10000000; // vrednost zmage, več kot vsaka druga ocena pozicije
 	public static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
 	public static final int NEODLOCENO = 0; // vrednost neodločene igre
 	
-	public static final int ENA_DO_ZMAGE = 10000;
-	public static final int DVE_DO_ZMAGE = 1000;
+	public static final int ENA_DO_ZMAGE = 1000000;
+	public static final int DVE_DO_ZMAGE = 10000;
 	public static final int TRI_DO_ZMAGE = 100;
-	public static final int PRISILJENA_POTEZA = 5000;
-	public static final int ENA_DO_PRISILJENA_POTEZA = 500;
-	public static final int DVE_DO_PRISILJENA_POTEZA = 50;
-	public static final int TRI_DO_PRISILJENA_POTEZA = 5;
+	public static final int PRISILJENA_POTEZA = 2000;
+	public static final int ENA_DO_PRISILJENA_POTEZA = 200;
+	public static final int DVE_DO_PRISILJENA_POTEZA = 20;
+	public static final int TRI_DO_PRISILJENA_POTEZA = 2;
 	
 	
 	
@@ -128,16 +128,6 @@ public class Ocena {
 		}
 		return 0;
 	}
-	
-//	public static boolean semJazNaPotezi(Stanje stanje, Igralec Jaz) {
-//		if (stanje == Stanje.BELI_NA_POTEZI) {
-//			return Jaz == Igralec.BELI;
-//		} else if (stanje == Stanje.CRNI_NA_POTEZI) {
-//			return Jaz == Igralec.CRNI;
-//		} else {
-//			return false;
-//		}
-//	}
 	
 	public static int oceniStirico(int stevilo, KonecStirice zacetek, KonecStirice konec, boolean jazNaPotezi) {
 		// katerikoli primer O----O, ne sme dati nič pik
