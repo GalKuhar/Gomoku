@@ -20,8 +20,6 @@ public class Ocena {
 	public static final int DVE_DO_PRISILJENA_POTEZA = 20;
 	public static final int TRI_DO_PRISILJENA_POTEZA = 2;
 	
-	
-	
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
 		Igralec naPotezi = null;
 		Stanje stanje = igra.stanje();
@@ -109,17 +107,8 @@ public class Ocena {
 						
 						vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, naPotezi == Igralec.BELI);
 					}
-					
-					// System.out.println(oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)));
-//					if (poljaBELI == 0 && poljaCRNI > 0) { vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
-//					if (poljaCRNI == 0 && poljaBELI > 0) { vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, semJazNaPotezi(stanje, naPotezi)); }
 				}
 			}
-//			System.out.println("BELI: " + vrednostBELI);
-//			System.out.println("CRNI: " + vrednostCRNI);
-//			if (naPotezi == Igralec.BELI) { vrednostCRNI /= 2; }
-//			if (naPotezi == Igralec.CRNI) { vrednostBELI /= 2; }
-//			System.out.println(jaz == Igralec.BELI ? (vrednostBELI - vrednostCRNI) : (vrednostCRNI - vrednostBELI));
 			return (jaz == Igralec.BELI ? vrednostBELI - vrednostCRNI : vrednostCRNI - vrednostBELI);
 			
 		case IGRA_NI_VELJAVNA:

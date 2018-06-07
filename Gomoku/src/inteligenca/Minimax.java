@@ -2,8 +2,6 @@ package inteligenca;
 
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 import javax.swing.SwingWorker;
 import gui.GlavnoOkno;
 import logika.Igra;
@@ -100,7 +98,6 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 				ocenaNajboljse = ocenaP;
 			}
 		}
-
 		assert (najboljsa != null);
 		return new OcenjenaPoteza(najboljsa, ocenaNajboljse);
 	}
