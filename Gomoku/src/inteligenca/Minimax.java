@@ -40,7 +40,6 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 	}
 
 	private OcenjenaPoteza minimax(int k, Igra igra) {
-		
 		Igralec naPotezi = null;
 		// Ugotovimo, ali je konec, ali je kdo na potezi?
 		switch (igra.stanje()) {
@@ -48,13 +47,9 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 		case BELI_NA_POTEZI: naPotezi = Igralec.BELI; break;
 		// Igre je konec, ne moremo vrniti poteze, vrnemo le vrednost pozicije
 		case BELI_ZMAGA:
-			return new OcenjenaPoteza(
-					null,
-					(jaz == Igralec.BELI ? Ocena.ZMAGA : Ocena.ZGUBA));
+			return new OcenjenaPoteza(null, (jaz == Igralec.BELI ? Ocena.ZMAGA : Ocena.ZGUBA));
 		case CRNI_ZMAGA:
-			return new OcenjenaPoteza(
-					null,
-					(jaz == Igralec.CRNI ? Ocena.ZMAGA : Ocena.ZGUBA));
+			return new OcenjenaPoteza(null, (jaz == Igralec.CRNI ? Ocena.ZMAGA : Ocena.ZGUBA));
 		case NEODLOCENO:
 			return new OcenjenaPoteza(null, Ocena.NEODLOCENO);
 		default:
@@ -76,6 +71,7 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 		int ocenaNajboljse = 0;
 		
 		// to premeša možne poteze - s tem dodamo random izbiro
+		// to bo delovalo tudi za alfa-beta
 		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
 		Collections.shuffle(moznePoteze);
 		

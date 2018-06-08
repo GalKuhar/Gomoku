@@ -12,8 +12,8 @@ public class Ocena {
 	public static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
 	public static final int NEODLOCENO = 0; // vrednost neodločene igre
 	
-	public static final int ENA_DO_ZMAGE = 1000000;
-	public static final int DVE_DO_ZMAGE = 10000;
+	public static final int ENA_DO_ZMAGE = 100000;
+	public static final int DVE_DO_ZMAGE = 50000;
 	public static final int TRI_DO_ZMAGE = 100;
 	public static final int PRISILJENA_POTEZA = 2000;
 	public static final int ENA_DO_PRISILJENA_POTEZA = 200;
@@ -27,7 +27,7 @@ public class Ocena {
 		case CRNI_ZMAGA:
 			return (jaz == Igralec.CRNI ? ZMAGA : ZGUBA);
 		case BELI_ZMAGA:
-			return (jaz == Igralec.BELI ? ZMAGA : ZGUBA);
+			 return (jaz == Igralec.BELI ? ZMAGA : ZGUBA);
 		case NEODLOCENO:
 			return NEODLOCENO;
 		case CRNI_NA_POTEZI:
@@ -143,7 +143,7 @@ public class Ocena {
 				} else {
 					return PRISILJENA_POTEZA;
 				}
-			// do tega sicer ne sme priti ampak da bo popolno:
+			// primer XXXXX- ali XXXXXX
 			} else {
 				return ZMAGA;
 			}
