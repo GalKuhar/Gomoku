@@ -14,8 +14,6 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 	private int globina;
 	private Igralec jaz;
 	
-//	private List<Poteza> najboljsePoteze;
-	
 	public Minimax(GlavnoOkno master, int globina, Igralec jaz) {
 		this.master = master;
 		this.globina = globina;
@@ -53,6 +51,7 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 		case NEODLOCENO:
 			return new OcenjenaPoteza(null, Ocena.NEODLOCENO);
 		default:
+			
 			break;
 		}
 		

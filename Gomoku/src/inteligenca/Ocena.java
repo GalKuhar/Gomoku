@@ -22,100 +22,93 @@ public class Ocena {
 	
 	public static int oceniPozicijo(Igralec jaz, Igra igra) {
 		Igralec naPotezi = null;
+		
 		Stanje stanje = igra.stanje();
 		switch (stanje) {
-		case CRNI_ZMAGA:
-			return (jaz == Igralec.CRNI ? ZMAGA : ZGUBA);
-		case BELI_ZMAGA:
-			 return (jaz == Igralec.BELI ? ZMAGA : ZGUBA);
-		case NEODLOCENO:
-			return NEODLOCENO;
 		case CRNI_NA_POTEZI:
-			naPotezi = Igralec.CRNI;
+			naPotezi = Igralec.CRNI; break;
 		case BELI_NA_POTEZI:
-			naPotezi = Igralec.BELI;
-			Plosca plosca = igra.getPlosca();
+			naPotezi = Igralec.BELI; break;
+		default:
+			break;
+		}
+		
+		Plosca plosca = igra.getPlosca();
 			
-			int vrednostBELI = 0;
-			int vrednostCRNI = 0;
+		int vrednostBELI = 0;
+		int vrednostCRNI = 0;
 			
-			// po smereh
-			for (Smer s: Igra.getSmeri()) {
-				// pregledamo štirice v smeri
-				for (int k = 0; k < s.dolzina() - Igra.getPET() + 2; k++) {
-					int poljaCRNI = 0;
-					int poljaBELI = 0;
+		// po smereh
+		for (Smer s: Igra.getSmeri()) {
+			// pregledamo štirice v smeri
+			for (int k = 0; k < s.dolzina() - Igra.getPET() + 2; k++) {
+				int poljaCRNI = 0;
+				int poljaBELI = 0;
 					
-					KonecStirice zacetek = null;
-					KonecStirice konec = null;
+				KonecStirice zacetek = null;
+				KonecStirice konec = null;
 					
-					// pregledamo elemente štiric
-					for (int i = k; i < k + Igra.getPET() - 1; i++) {
-						switch (plosca.element(s.getX()[i], s.getY()[i])) {
-						case CRNI: poljaCRNI += 1; break;
-						case BELI: poljaBELI += 1; break;
-						case PRAZNO: break;
-						}
-					}
-					
-					if (poljaBELI == 0 && poljaCRNI > 0) {
-						if (k == 0) {
-							// če smo na koncu polja, imamo zaprt konec štirice
-							zacetek = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
-							case CRNI: zacetek = KonecStirice.ISTE_BARVE; break;
-							case BELI: zacetek = KonecStirice.ZAPRT; break;
-							case PRAZNO: zacetek = KonecStirice.ODPRT; break;
-							}
-						}
-						
-						if (k == s.dolzina() - Igra.getPET() + 1) {
-							konec = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(s.getX()[k + Igra.getPET() - 1], s.getY()[k + Igra.getPET() - 1])) {
-							case CRNI: konec = KonecStirice.ISTE_BARVE; break;
-							case BELI: konec = KonecStirice.ZAPRT; break;
-							case PRAZNO: konec = KonecStirice.ODPRT; break;
-							}
-						}
-						
-						vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, naPotezi == Igralec.CRNI);
-					}
-					
-					if (poljaCRNI == 0 && poljaBELI > 0) {
-						if (k == 0) {
-							// če smo na koncu polja, imamo zaprt konec štirice
-							zacetek = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
-							case BELI: zacetek = KonecStirice.ISTE_BARVE; break;
-							case CRNI: zacetek = KonecStirice.ZAPRT; break;
-							case PRAZNO: zacetek = KonecStirice.ODPRT; break;
-							}
-						}
-						
-						if (k == s.dolzina() - Igra.getPET() + 1) {
-							konec = KonecStirice.ZAPRT;
-						} else {
-							switch (plosca.element(s.getX()[k + Igra.getPET() - 1], s.getY()[k + Igra.getPET() - 1])) {
-							case BELI: konec = KonecStirice.ISTE_BARVE; break;
-							case CRNI: konec = KonecStirice.ZAPRT; break;
-							case PRAZNO: konec = KonecStirice.ODPRT; break;
-							}
-						}
-						
-						vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, naPotezi == Igralec.BELI);
+				// pregledamo elemente štiric
+				for (int i = k; i < k + Igra.getPET() - 1; i++) {
+					switch (plosca.element(s.getX()[i], s.getY()[i])) {
+					case CRNI: poljaCRNI += 1; break;
+					case BELI: poljaBELI += 1; break;
+					case PRAZNO: break;
 					}
 				}
+					
+				if (poljaBELI == 0 && poljaCRNI > 0) {
+					if (k == 0) {
+						// če smo na koncu polja, imamo zaprt konec štirice
+						zacetek = KonecStirice.ZAPRT;
+					} else {
+						switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
+						case CRNI: zacetek = KonecStirice.ISTE_BARVE; break;
+						case BELI: zacetek = KonecStirice.ZAPRT; break;
+						case PRAZNO: zacetek = KonecStirice.ODPRT; break;
+						}
+					}
+						
+					if (k == s.dolzina() - Igra.getPET() + 1) {
+						konec = KonecStirice.ZAPRT;
+					} else {
+						switch (plosca.element(s.getX()[k + Igra.getPET() - 1], s.getY()[k + Igra.getPET() - 1])) {
+						case CRNI: konec = KonecStirice.ISTE_BARVE; break;
+						case BELI: konec = KonecStirice.ZAPRT; break;
+						case PRAZNO: konec = KonecStirice.ODPRT; break;
+						}
+					}
+					
+					vrednostCRNI += oceniStirico(poljaCRNI, zacetek, konec, naPotezi == Igralec.CRNI);
+				}
+				
+				if (poljaCRNI == 0 && poljaBELI > 0) {
+					if (k == 0) {
+						// če smo na koncu polja, imamo zaprt konec štirice
+						zacetek = KonecStirice.ZAPRT;
+					} else {
+						switch (plosca.element(s.getX()[k - 1], s.getY()[k - 1])) {
+						case BELI: zacetek = KonecStirice.ISTE_BARVE; break;
+						case CRNI: zacetek = KonecStirice.ZAPRT; break;
+						case PRAZNO: zacetek = KonecStirice.ODPRT; break;
+						}
+					}
+					
+					if (k == s.dolzina() - Igra.getPET() + 1) {
+						konec = KonecStirice.ZAPRT;
+					} else {
+						switch (plosca.element(s.getX()[k + Igra.getPET() - 1], s.getY()[k + Igra.getPET() - 1])) {
+						case BELI: konec = KonecStirice.ISTE_BARVE; break;
+						case CRNI: konec = KonecStirice.ZAPRT; break;
+						case PRAZNO: konec = KonecStirice.ODPRT; break;
+						}
+					}
+					
+					vrednostBELI += oceniStirico(poljaBELI, zacetek, konec, naPotezi == Igralec.BELI);
+				}
 			}
-			return (jaz == Igralec.BELI ? vrednostBELI - vrednostCRNI : vrednostCRNI - vrednostBELI);
-			
-		case IGRA_NI_VELJAVNA:
-			// to samo da eclipse in java ne težita
-			return 413;
 		}
-		return 0;
+		return (jaz == Igralec.BELI ? vrednostBELI - vrednostCRNI : vrednostCRNI - vrednostBELI);
 	}
 	
 	public static int oceniStirico(int stevilo, KonecStirice zacetek, KonecStirice konec, boolean jazNaPotezi) {

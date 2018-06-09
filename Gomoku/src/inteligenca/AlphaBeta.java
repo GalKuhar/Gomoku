@@ -72,7 +72,7 @@ public class AlphaBeta extends SwingWorker<Poteza, Object>  {
 				int ocenaPoteze = alphaBeta(kopijaIgre, globina - 1, alpha, beta).vrednost;
 				
 				// to pravzaprav najboljsaOcena = Math.max(najboljsaOcena, ocenjenaNovaPoteza.vrednost) ki še nastavi novo potezo
-				if (najboljsaOcena <= ocenaPoteze) {
+				if (najboljsaOcena < ocenaPoteze) {
 					najboljsaOcena = ocenaPoteze;
 					najboljsaPoteza = poteza;
 				}
@@ -91,7 +91,7 @@ public class AlphaBeta extends SwingWorker<Poteza, Object>  {
 				
 				int ocenaPoteze = alphaBeta(kopijaIgre, globina - 1, alpha, beta).vrednost;
 				
-				if (najboljsaOcena >= ocenaPoteze) {
+				if (najboljsaOcena > ocenaPoteze) {
 					najboljsaOcena = ocenaPoteze;
 					najboljsaPoteza = poteza;
 				}
