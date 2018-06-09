@@ -1,48 +1,17 @@
-# Gomoku
-Projekt pri programiranju 2: Gal Kuhar in Petra Podlogar
+﻿# Gomoku
+## Projekt pri programiranju 2: Gal Kuhar in Petra Podlogar
 
-Jezik programiranja: slovenščina, brez šumnikov
+2. letnik matematike, Fakulteta za matematiko in fiziko, Univerza v Ljubljani
+
 ***
-# Eclipse:
-dobiš na https://www.eclipse.org/neon/
+V Javi je narejena igrica [Gomoku](https://en.wikipedia.org/wiki/Gomoku).
 
-za delo z neonom potrebuješ še Java JDK 8:
+Gomoku je igra za dva igralca (eden izmed njiju je lahko tudi računalnik). Namen igre je postaviti pet žetonov v vrsto, preden to stori nasprotnik. 
 
-http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+Pravila igre: 
+- igro začne igralec s črnimi žetoni 
+- vsak igralec vstavi po en žeton na katerokoli prazno mesto 
+- igra se izmenično, dokler eden od igralcev ne postavi pet žetonov v vrsto 
+- zmaga tisti, ki uspe prvi postaviti pet žetonov v vrsto
 
-Java SE Development Kit 8u171 za windows.
-
-# Git:
-(Takole meni deluje)
-
-V eclipse narediš nov Java projekt ki se mora imenovati Gomoku
-
-Team > Share Project > Git
-
-Repozitory: narediš kjer boš imela datoteke (npr. Desktop\Projekt)
-
-\> Finish
-
-V tem repozitoriju (Desktop\Projekt) izbrišeš mapo Gomoku (Ne sprašuj zakaj, ker ne vem, drugače pa ne dela)
-
-Team > Pull
-
-Remote name: origin
-
-URI: https://github.com/GalKuhar/Gomoku.git
-
-\> next
-
-Remote > New Remote
-
-Remote name: origin
-
-URI: https://github.com/GalKuhar/Gomoku.git
-
-\> Finish
-
-Reference: master
-
-\> Finish
-
-in bi moglo delat (teoretično)
+Začetna igra je nastavljena na igro med človekom in računalnikom.
