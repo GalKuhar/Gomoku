@@ -1,7 +1,7 @@
 ﻿# Gomoku
 ## Projekt pri programiranju 2: Gal Kuhar in Petra Podlogar
 
-2. letnik matematike, Fakulteta za matematiko in fiziko, Univerza v Ljubljani
+2\. letnik matematike, Fakulteta za matematiko in fiziko, Univerza v Ljubljani
 
 ***
 V Javi je narejena igrica [Gomoku](https://en.wikipedia.org/wiki/Gomoku).
