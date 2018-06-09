@@ -45,9 +45,9 @@ public class AlphaBeta extends SwingWorker<Poteza, Object>  {
 		case BELI_NA_POTEZI:
 			naPotezi = Igralec.BELI; break;
 		case BELI_ZMAGA:
-			return new OcenjenaPoteza(null, (jaz == Igralec.BELI ? Ocena.ZMAGA : Ocena.ZGUBA));
+			return new OcenjenaPoteza(null, (jaz == Igralec.BELI ? Ocena.ZMAGA + globina : Ocena.ZGUBA - globina));
 		case CRNI_ZMAGA:
-			return new OcenjenaPoteza(null, (jaz == Igralec.CRNI ? Ocena.ZMAGA : Ocena.ZGUBA));
+			return new OcenjenaPoteza(null, (jaz == Igralec.CRNI ? Ocena.ZMAGA + globina : Ocena.ZGUBA - globina));
 		case NEODLOCENO:
 			return new OcenjenaPoteza(null, Ocena.NEODLOCENO);
 		default:
