@@ -3,7 +3,6 @@ package gui;
 import javax.swing.SwingWorker;
 
 import inteligenca.AlphaBeta;
-import inteligenca.Minimax;
 import logika.Igralec;
 import logika.Poteza;
 
@@ -12,7 +11,7 @@ public class Racunalnik extends Strateg {
 	private Igralec jaz;
 	private SwingWorker<Poteza,Object> mislec;
 	
-	private final static int GLOBINA = 3;
+	public static final int GLOBINA = 3;
 
 	public Racunalnik(GlavnoOkno master, Igralec jaz) {
 		this.master = master;

@@ -54,6 +54,8 @@ public class Ocena {
 					case CRNI: poljaCRNI += 1; break;
 					case BELI: poljaBELI += 1; break;
 					case PRAZNO: break;
+					default:
+						break;
 					}
 				}
 					
@@ -66,6 +68,8 @@ public class Ocena {
 						case CRNI: zacetek = KonecStirice.ISTE_BARVE; break;
 						case BELI: zacetek = KonecStirice.ZAPRT; break;
 						case PRAZNO: zacetek = KonecStirice.ODPRT; break;
+						default:
+							break;
 						}
 					}
 						
@@ -76,6 +80,8 @@ public class Ocena {
 						case CRNI: konec = KonecStirice.ISTE_BARVE; break;
 						case BELI: konec = KonecStirice.ZAPRT; break;
 						case PRAZNO: konec = KonecStirice.ODPRT; break;
+						default:
+							break;
 						}
 					}
 					
@@ -91,6 +97,8 @@ public class Ocena {
 						case BELI: zacetek = KonecStirice.ISTE_BARVE; break;
 						case CRNI: zacetek = KonecStirice.ZAPRT; break;
 						case PRAZNO: zacetek = KonecStirice.ODPRT; break;
+						default:
+							break;
 						}
 					}
 					
@@ -101,6 +109,8 @@ public class Ocena {
 						case BELI: konec = KonecStirice.ISTE_BARVE; break;
 						case CRNI: konec = KonecStirice.ZAPRT; break;
 						case PRAZNO: konec = KonecStirice.ODPRT; break;
+						default:
+							break;
 						}
 					}
 					

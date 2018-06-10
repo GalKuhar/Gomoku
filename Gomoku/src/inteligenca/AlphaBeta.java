@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import javax.swing.SwingWorker;
 import gui.GlavnoOkno;
+import gui.Racunalnik;
 import logika.Igra;
 import logika.Igralec;
 import logika.Poteza;
@@ -59,7 +60,8 @@ public class AlphaBeta extends SwingWorker<Poteza, Object>  {
 		}
 		
 		Poteza najboljsaPoteza = null;
-		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
+//		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
+		LinkedList<Poteza> moznePoteze = igra.getPlosca().sosedi(Racunalnik.GLOBINA);
 		Collections.shuffle(moznePoteze);
 		
 		if (naPotezi == jaz) {

@@ -71,7 +71,7 @@ public class Minimax extends SwingWorker<Poteza, Object>  {
 		
 		// to premeša možne poteze - s tem dodamo random izbiro
 		// to bo delovalo tudi za alfa-beta
-		LinkedList<Poteza> moznePoteze = igra.moznePoteze();
+		LinkedList<Poteza> moznePoteze = igra.getPlosca().sosedi(2);
 		Collections.shuffle(moznePoteze);
 		
 		for (Poteza p : moznePoteze) {
